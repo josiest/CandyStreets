@@ -13,6 +13,7 @@ export default class CandyCat extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
 
         // Setup Input
+        scene.input.keyboard.addKeys("W,A,S,D");
         this.cursors = scene.input.keyboard.createCursorKeys();
     }
 
@@ -20,6 +21,7 @@ export default class CandyCat extends Phaser.Physics.Arcade.Sprite {
         super.update(time, deltaTime);
         const { left, right, up, down } = this.cursors;
 
+        // Map input to acceleration
         this.setAcceleration(0, 0);
         let acceleration = Phaser.Math.Vector2.ZERO.clone();
         if (left.isDown) {
@@ -39,17 +41,18 @@ export default class CandyCat extends Phaser.Physics.Arcade.Sprite {
         if (!this.body) {
             return;
         }
+        // Stop if currently moving below min speed and no input
         const isKeyDown = left.isDown || right.isDown || up.isDown || down.isDown;
         if (this.body.velocity.lengthSq() < this.minSpeed * this.minSpeed && !isKeyDown) {
             this.setVelocity(0, 0);
         }
-
+        // Slow down if currently moving at all and no input
         if (this.body.velocity.lengthSq() > 0 && !isKeyDown) {
             let friction = this.body.velocity.clone();
             friction.negate().scale(this.frictionConstant);
             this.setAcceleration(friction.x, friction.y);
         }
-
+        // Otherwise don't go faster than max speed
         let velocity = this.body.velocity.clone();
         velocity.limit(this.maxSpeed);
         this.setVelocity(velocity.x, velocity.y);
