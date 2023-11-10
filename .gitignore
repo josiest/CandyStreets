@@ -186,5 +186,5 @@ plugins/spine*/spine-runtimes/
 # Project
 #
 
-# Ignore assets for now
-assets/
+# Ignore temp assets
+src/assets/temp
