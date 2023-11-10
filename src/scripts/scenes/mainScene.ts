@@ -1,4 +1,4 @@
-import PhaserLogo from '../objects/phaserLogo'
+import CandyCat from '../objects/CandyCat'
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
@@ -6,7 +6,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    new PhaserLogo(this, this.cameras.main.width / 2, 0)
+    new CandyCat(this, this.cameras.main.width / 2, this.cameras.main.height / 2)
   }
 
   update() {
