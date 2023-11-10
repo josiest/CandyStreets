@@ -4,5 +4,7 @@ A game about trading candy on Halloween!
 
 ## Project Installation
 
-1. npm install
-2. npm start
+```console
+npm install
+npm start
+```
