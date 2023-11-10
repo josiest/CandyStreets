@@ -21,18 +21,21 @@ export default class CandyCat extends Phaser.Physics.Arcade.Sprite {
         const { left, right, up, down } = this.cursors;
 
         this.setAcceleration(0, 0);
+        let acceleration = Phaser.Math.Vector2.ZERO.clone();
         if (left.isDown) {
-            this.setAccelerationX(-this.accelerationConstant);
+            acceleration.x = -1;
         }
         else if (right.isDown) {
-            this.setAccelerationX(this.accelerationConstant);
+            acceleration.x = 1;
         }
         if (up.isDown) {
-            this.setAccelerationY(-this.accelerationConstant);
+            acceleration.y = -1;
         }
         else if (down.isDown) {
-            this.setAccelerationY(this.accelerationConstant);
+            acceleration.y = 1;
         }
+        acceleration.normalize().scale(this.accelerationConstant);
+        this.setAcceleration(acceleration.x, acceleration.y);
         if (!this.body) {
             return;
         }
@@ -47,7 +50,8 @@ export default class CandyCat extends Phaser.Physics.Arcade.Sprite {
             this.setAcceleration(friction.x, friction.y);
         }
 
-        const velocity = this.body.velocity.limit(this.maxSpeed);
+        let velocity = this.body.velocity.clone();
+        velocity.limit(this.maxSpeed);
         this.setVelocity(velocity.x, velocity.y);
     }
 }
