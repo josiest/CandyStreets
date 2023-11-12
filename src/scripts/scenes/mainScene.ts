@@ -25,5 +25,6 @@ export default class MainScene extends Phaser.Scene {
 
     update(time, deltaTime) {
         this.player.update(time, deltaTime);
+        this.characterSystem.update(time, deltaTime);
     }
 }

@@ -1,6 +1,9 @@
+import InteractionComponent from '../interaction/InteractionComponent'
+import Player from '../objects/Player'
+
 export default class Character extends Phaser.Physics.Arcade.Sprite {
     static interactionPadding: number = 100;
-    interactionBounds: Phaser.GameObjects.Rectangle;
+    interaction: InteractionComponent;
 
     constructor(scene: Phaser.Scene,
                 characterId: string, x: number, y: number) {
@@ -9,13 +12,17 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.setImmovable();
 
-        this.interactionBounds = scene.add.rectangle(
+        this.interaction = new InteractionComponent(
+            scene,
             x, y,
             this.displayWidth + Character.interactionPadding,
             this.displayHeight + Character.interactionPadding
         );
-        scene.physics.add.existing(this.interactionBounds);
-        this.interactionBounds.setStrokeStyle(1, 0xeb4034);
-        this.interactionBounds.setDepth(-1);
+        this.interaction.onPlayerEnterOverlap = (player: Player) => {
+            console.log(`overlap ${characterId}!`);
+        };
+        this.interaction.onPlayerLeaveOverlap = () => {
+            console.log('end overlap');
+        };
     }
 }

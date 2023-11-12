@@ -1,4 +1,6 @@
+import Player from '../objects/Player'
 import Character from '../character/Character'
+import InteractionComponent from '../interaction/InteractionComponent'
 
 export default class CharacterSystem extends Phaser.GameObjects.GameObject {
     characters: Phaser.GameObjects.Group;
@@ -12,7 +14,14 @@ export default class CharacterSystem extends Phaser.GameObjects.GameObject {
         scene.physics.add.overlap(
             player, this.interactionBounds,
             (obj1, obj2) => {
-                console.log("overlap!");
+                let player = <Player> obj1;
+                let bounds = <InteractionComponent> obj2;
+                if (player && bounds) {
+                    bounds.handleOverlap(player);
+                }
+                else {
+                    console.log("failed to cast correctly on overlap!");
+                }
             });
     }
 
@@ -23,6 +32,16 @@ export default class CharacterSystem extends Phaser.GameObjects.GameObject {
             scene, characterId, x, y
         );
         this.characters.add(character);
-        this.interactionBounds.add(character.interactionBounds);
+        this.interactionBounds.add(character.interaction);
+    }
+
+    update(time, deltaTime) {
+        this.interactionBounds.children.each(obj => {
+            let bounds = <InteractionComponent> obj;
+            if (bounds) {
+                bounds.update(time, deltaTime);
+            }
+            return true;
+        });
     }
 }
