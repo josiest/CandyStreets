@@ -1,0 +1,14 @@
+{ "columns":8,
+ "image":"temp-tiles_extruded.png",
+ "imageheight":516,
+ "imagewidth":2064,
+ "margin":1,
+ "name":"temp-tiles_extruded",
+ "spacing":2,
+ "tilecount":16,
+ "tiledversion":"1.10.2",
+ "tileheight":256,
+ "tilewidth":256,
+ "type":"tileset",
+ "version":"1.10"
+}
