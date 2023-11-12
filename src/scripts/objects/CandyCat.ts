@@ -3,7 +3,7 @@ export default class CandyCat extends Phaser.Physics.Arcade.Sprite {
     minSpeed: number = 80.0;
     maxSpeed: number = 300.0;
     accelerationConstant: number = 800.0;
-    frictionConstant: number = 2.5;
+    frictionConstant: number = 3.5;
 
     constructor(scene, x, y) {
         super(scene, x, y, 'candy-cat');
