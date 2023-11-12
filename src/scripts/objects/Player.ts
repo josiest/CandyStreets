@@ -1,4 +1,4 @@
-export default class CandyCat extends Phaser.Physics.Arcade.Sprite {
+export default class Player extends Phaser.Physics.Arcade.Sprite {
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     minSpeed: number = 80.0;
     maxSpeed: number = 300.0;

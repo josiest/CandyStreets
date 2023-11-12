@@ -1,14 +1,14 @@
-import CandyCat from '../objects/CandyCat'
+import Player from '../objects/Player'
 
 export default class MainScene extends Phaser.Scene {
-    player: CandyCat;
+    player: Player;
 
     constructor() {
         super({ key: 'MainScene' })
     }
 
     create() {
-        this.player = new CandyCat(this, this.cameras.main.width / 2, this.cameras.main.height / 2)
+        this.player = new Player(this, this.cameras.main.width / 2, this.cameras.main.height / 2)
     }
 
     update(time, deltaTime) {
