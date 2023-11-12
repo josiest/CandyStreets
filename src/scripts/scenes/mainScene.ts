@@ -1,11 +1,9 @@
 import Player from '../objects/Player'
-import Character from '../character/Character'
+import CharacterSystem from '../character/CharacterSystem'
 
 export default class MainScene extends Phaser.Scene {
     player: Player;
-
-    // TODO: Move to manager
-    characters: Phaser.GameObjects.Group;
+    characterSystem: CharacterSystem;
 
     constructor() {
         super({ key: 'MainScene' })
@@ -17,14 +15,12 @@ export default class MainScene extends Phaser.Scene {
 
         this.player = new Player(this, sceneWidth / 2, sceneHeight / 2)
 
-        // TODO: Move to manager
-        this.characters = this.add.group();
-        this.characters.add(
-            new Character(this, 'candy-lama', sceneWidth / 4, sceneHeight / 5));
-        this.characters.add(
-            new Character(this, 'candy-pirate', 3 * sceneWidth / 4, sceneHeight / 5));
+        this.characterSystem = new CharacterSystem(this, this.player);
+        this.characterSystem.add(this, 'candy-lama',
+                                 sceneWidth / 4, sceneHeight / 5);
+        this.characterSystem.add(this, 'candy-pirate',
+                                 3 * sceneWidth / 4, sceneHeight / 5);
 
-        this.physics.add.collider(this.player, this.characters);
     }
 
     update(time, deltaTime) {
