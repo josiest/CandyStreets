@@ -1,8 +1,10 @@
 import InteractionComponent from '../interaction/InteractionComponent'
+import TradeMenu from './TradeMenu'
 import Player from '../objects/Player'
 
 export default class Character extends Phaser.Physics.Arcade.Sprite {
     static interactionPadding: number = 100;
+    tradeMenu: TradeMenu;
     interaction: InteractionComponent;
 
     constructor(scene: Phaser.Scene,
@@ -12,6 +14,8 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.setImmovable();
 
+        this.tradeMenu = TradeMenu.withParent(this);
+
         this.interaction = new InteractionComponent(
                 this, x, y,
                 this.displayWidth + Character.interactionPadding,
@@ -19,7 +23,12 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
             .dialog("to talk");
 
         this.interaction.onPlayerInteracted = () => {
-            console.log("interact!");
+            this.tradeMenu.activate();
+            this.interaction.hideText();
+        };
+
+        this.tradeMenu.onDeactivated = () => {
+            this.interaction.showText();
         };
     }
 }

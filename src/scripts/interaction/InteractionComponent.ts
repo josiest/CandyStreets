@@ -37,6 +37,15 @@ export default class InteractionComponent extends Phaser.GameObjects.Zone {
         return this;
     }
 
+    showText() {
+        if (this.isOverlappingPlayer) {
+            this.promptText.setVisible(true);
+        }
+    }
+    hideText() {
+        this.promptText.setVisible(false);
+    }
+
     handleOverlap(player: Player) {
         if (!this.isOverlappingPlayer) {
             if (this.onPlayerEnterOverlap) {
