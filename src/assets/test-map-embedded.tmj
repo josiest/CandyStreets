@@ -303,37 +303,37 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/..\/tiled\/pirate-house.png",
+                 "image":"temp/pirate-house.png",
                  "imageheight":429,
                  "imagewidth":513
                 }, 
                 {
                  "id":1,
-                 "image":"..\/..\/tiled\/spider-house.png",
+                 "image":"temp/spider-house.png",
                  "imageheight":362,
                  "imagewidth":505
                 }, 
                 {
                  "id":2,
-                 "image":"..\/..\/tiled\/spooky-house.png",
+                 "image":"temp/spooky-house.png",
                  "imageheight":548,
                  "imagewidth":678
                 }, 
                 {
                  "id":3,
-                 "image":"..\/..\/tiled\/candy-lama.png",
+                 "image":"temp/candy-lama.png",
                  "imageheight":128,
                  "imagewidth":128
                 }, 
                 {
                  "id":4,
-                 "image":"..\/..\/tiled\/candy-pirate.png",
+                 "image":"temp/candy-pirate.png",
                  "imageheight":128,
                  "imagewidth":128
                 }, 
                 {
                  "id":5,
-                 "image":"..\/..\/tiled\/candy-cat.png",
+                 "image":"temp/candy-cat.png",
                  "imageheight":128,
                  "imagewidth":128
                 }],
@@ -342,7 +342,7 @@
         {
          "columns":8,
          "firstgid":7,
-         "image":"..\/..\/tiled\/temp-tiles_extruded.png",
+         "image":"temp-tiles_extruded.png",
          "imageheight":516,
          "imagewidth":2064,
          "margin":1,

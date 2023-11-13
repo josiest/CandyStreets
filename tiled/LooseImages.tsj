@@ -15,37 +15,37 @@
  "tiles":[
         {
          "id":0,
-         "image":"pirate-house.png",
+         "image":"temp/pirate-house.png",
          "imageheight":429,
          "imagewidth":513
         }, 
         {
          "id":1,
-         "image":"spider-house.png",
+         "image":"temp/spider-house.png",
          "imageheight":362,
          "imagewidth":505
         }, 
         {
          "id":2,
-         "image":"spooky-house.png",
+         "image":"temp/spooky-house.png",
          "imageheight":548,
          "imagewidth":678
         }, 
         {
          "id":3,
-         "image":"candy-lama.png",
+         "image":"temp/candy-lama.png",
          "imageheight":128,
          "imagewidth":128
         }, 
         {
          "id":4,
-         "image":"candy-pirate.png",
+         "image":"temp/candy-pirate.png",
          "imageheight":128,
          "imagewidth":128
         }, 
         {
          "id":5,
-         "image":"candy-cat.png",
+         "image":"temp/candy-cat.png",
          "imageheight":128,
          "imagewidth":128
         }],
