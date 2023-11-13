@@ -13,16 +13,13 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
         this.setImmovable();
 
         this.interaction = new InteractionComponent(
-            scene,
+            scene, "to talk",
             x, y,
             this.displayWidth + Character.interactionPadding,
             this.displayHeight + Character.interactionPadding
         );
-        this.interaction.onPlayerEnterOverlap = (player: Player) => {
-            console.log(`overlap ${characterId}!`);
-        };
-        this.interaction.onPlayerLeaveOverlap = () => {
-            console.log('end overlap');
+        this.interaction.onPlayerInteracted = () => {
+            console.log("interact!");
         };
     }
 }
