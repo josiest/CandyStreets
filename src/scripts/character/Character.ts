@@ -13,11 +13,11 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
         this.setImmovable();
 
         this.interaction = new InteractionComponent(
-            scene, "to talk",
-            x, y,
-            this.displayWidth + Character.interactionPadding,
-            this.displayHeight + Character.interactionPadding
-        );
+                this, x, y,
+                this.displayWidth + Character.interactionPadding,
+                this.displayHeight + Character.interactionPadding)
+            .dialog("to talk");
+
         this.interaction.onPlayerInteracted = () => {
             console.log("interact!");
         };

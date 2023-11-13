@@ -3,6 +3,8 @@ type PlayerInteractionEvent = (player: Player) => void;
 type InteractionEvent = () => void;
 
 export default class InteractionComponent extends Phaser.GameObjects.Zone {
+    gameObject: Phaser.GameObjects.GameObject;
+
     isOverlappingPlayer: boolean = false;
     promptText: Phaser.GameObjects.Text;
 
@@ -10,25 +12,29 @@ export default class InteractionComponent extends Phaser.GameObjects.Zone {
     onPlayerLeaveOverlap: InteractionEvent;
     onPlayerInteracted: InteractionEvent;
 
-    constructor(scene: Phaser.Scene, interactionPrompt: string,
+    constructor(gameObject: Phaser.GameObjects.GameObject,
                 x: number, y: number, width: number, height: number) {
-        super(scene, x, y, width, height);
+        super(gameObject.scene, x, y, width, height);
+        this.gameObject = gameObject;
+        this.scene.physics.add.existing(this, false);
 
-        this.promptText = scene.add.text((scene.scale.width / 2) - 100,
-                                         scene.scale.height - 100,
-                                         `e ${interactionPrompt}`,
-                                         { color: '#0', fontSize: 30 })
-                               .setVisible(false);
-
-        if (scene.input.keyboard) {
-            scene.input.keyboard.on('keyup-E', event => {
+        if (this.scene.input.keyboard) {
+            this.scene.input.keyboard.on('keyup-E', event => {
                 if (this.isOverlappingPlayer && this.onPlayerInteracted) {
                     this.onPlayerInteracted();
                 }
             });
         }
+    }
 
-        scene.physics.add.existing(this, false);
+    dialog(interactionPrompt: string) {
+         this.promptText = this.scene
+            .add.text((this.scene.scale.width / 2) - 100,
+                      this.scene.scale.height - 100,
+                      `e ${interactionPrompt}`,
+                      { color: '#0', fontSize: 30 })
+            .setVisible(false);
+        return this;
     }
 
     handleOverlap(player: Player) {
