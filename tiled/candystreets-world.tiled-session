@@ -3,23 +3,43 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "LooseImages.tsx",
+    "activeFile": "test-map.tmj",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "LooseImages.tsj": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 0.12
+        },
         "LooseImages.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 0.25,
             "scaleInEditor": 0.12
         },
         "bg-tileset.tsj": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 0.25
         },
         "bg-tileset.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "test-map.tmj": {
+            "scale": 0.11,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 4295.454545454546,
+                "y": 4722.727272727274
+            }
+        },
+        "test-map.tmj#LooseImages": {
+            "dynamicWrapping": true
         },
         "test-map.tmx": {
             "scale": 0.2519,
@@ -30,7 +50,7 @@
             }
         }
     },
-    "last.exportedFilePath": "/Users/resident/Documents/code/group-jams/seatle-slow-game-jam-2023/candy-nights/CandyStreets/tiled",
+    "last.exportedFilePath": "/Users/resident/Documents/code/group-jams/seatle-slow-game-jam-2023/candy-nights/CandyStreets/src/assets",
     "last.imagePath": "/Users/resident/Documents/code/group-jams/seatle-slow-game-jam-2023/candy-nights/CandyStreets/tiled",
     "lastUsedTilesetExportFilter": "JSON tileset files (*.tsj *.json)",
     "map.height": 50,
@@ -40,12 +60,13 @@
     "map.tileWidth": 512,
     "map.width": 50,
     "openFiles": [
-        "LooseImages.tsx",
-        "test-map.tmx"
+        "test-map.tmj"
     ],
     "project": "candystreets-world.tiled-project",
     "recentFiles": [
+        "test-map.tmj",
         "LooseImages.tsx",
+        "LooseImages.tsj",
         "bg-tileset.tsx",
         "test-map.tmx"
     ],
