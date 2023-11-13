@@ -27,6 +27,7 @@ export default class MainScene extends Phaser.Scene {
 
         this.cameras.main.setBounds(0, 0, 
                                     this.level.map.widthInPixels, this.level.map.heightInPixels);
+        this.cameras.main.startFollow(this.player, true, 0.075, 0.075);
     }
 
     update(time, deltaTime) {
