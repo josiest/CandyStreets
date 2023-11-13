@@ -1,42 +1,36 @@
-import CandyCat from '../objects/CandyCat'
+import Player from '../objects/Player'
+import CharacterSystem from '../character/CharacterSystem'
 import Level from '../objects/Level'
 
 export default class MainScene extends Phaser.Scene {
-  level:Level
-  tempCameraControls:Phaser.Cameras.Controls.FixedKeyControl
+    level:Level;
+    player: Player;
+    characterSystem: CharacterSystem;
 
-  constructor() {
-    super({ key: 'MainScene' })
-  }
-
-  create() {
-    this.level = new Level(this);
-    new CandyCat(this, this.cameras.main.width / 2, this.cameras.main.height / 2)
-
-    this.cameras.main.setBounds(0, 0, this.level.map.widthInPixels, this.level.map.heightInPixels)
-
-    // temp
-    if (this.input === null || this.input.keyboard === null) {
-      console.warn("no keyboard input available")
-    } else {
-      const cursors = this.input.keyboard.createCursorKeys()
-      this.tempCameraControls = new Phaser.Cameras.Controls.FixedKeyControl({
-        camera: this.cameras.main,
-        left: cursors.left,
-        right: cursors.right,
-        up: cursors.up,
-        down: cursors.down,
-        zoomIn: cursors.shift,
-        zoomOut: cursors.space,
-        minZoom: 0.125,
-        maxZoom: 1.0,
-        zoomSpeed: 0.01,
-        speed: 1.5
-      })
+    constructor() {
+        super({ key: 'MainScene' });
     }
-  }
 
-  update(time, delta) {
-    this.tempCameraControls.update(delta)
-  }
+    create() {
+        const sceneWidth = this.cameras.main.width;
+        const sceneHeight = this.cameras.main.height;
+
+        this.level = new Level(this);
+
+        this.player = new Player(this, sceneWidth / 2, sceneHeight / 2);
+
+        this.characterSystem = new CharacterSystem(this, this.player);
+        this.characterSystem.add(this, 'candy-lama',
+                                 sceneWidth / 4, sceneHeight / 5);
+        this.characterSystem.add(this, 'candy-pirate',
+                                 3 * sceneWidth / 4, sceneHeight / 5);
+
+        this.cameras.main.setBounds(0, 0, 
+                                    this.level.map.widthInPixels, this.level.map.heightInPixels);
+    }
+
+    update(time, deltaTime) {
+        this.player.update(time, deltaTime);
+        this.characterSystem.update(time, deltaTime);
+    }
 }
