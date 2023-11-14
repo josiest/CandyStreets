@@ -22,4 +22,8 @@ export default class HUD extends Phaser.GameObjects.Container {
     hidePrompt() {
         this.promptText.setVisible(false);
     }
+    setVisible(isVisible: boolean) {
+        this.promptText.setVisible(isVisible);
+        return super.setVisible(isVisible);
+    }
 }

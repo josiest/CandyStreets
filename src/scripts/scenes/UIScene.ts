@@ -8,11 +8,11 @@ export default class UIScene extends Phaser.Scene {
         this.stack = new Array<Phaser.GameObjects.Container>();
     }
     create() {
-        UIScene.pushContent(this, HUD.inScene(this));
+        UIScene.pushContent(this, HUD);
     }
 
-    static pushContent(scene: Phaser.Scene,
-                       widget: Phaser.GameObjects.Container) {
+    static pushContent<WidgetType extends Phaser.GameObjects.Container>(
+            scene: Phaser.Scene, widgetConstructor) {
 
         let ui = <UIScene> scene.scene.get('ui-scene');
         if (!ui) {
@@ -21,10 +21,8 @@ export default class UIScene extends Phaser.Scene {
         if (ui.stack.length > 0) {
             let current = ui.stack.at(ui.stack.length-1)!;
             current.setVisible(false);
-            if (current.input) {
-                current.input.enabled = false;
-            }
         }
+        let widget = new widgetConstructor(ui);
         ui.stack.push(widget);
         widget.setVisible(true);
         return widget;
@@ -37,6 +35,11 @@ export default class UIScene extends Phaser.Scene {
         if (ui.stack.length == 0) {
             return undefined;
         }
-        return ui.stack.pop();
+        let last = ui.stack.pop();
+        if (ui.stack.length > 0) {
+            let current = ui.stack.at(ui.stack.length-1)!;
+            current.setVisible(true);
+        }
+        return last;
     }
 }
