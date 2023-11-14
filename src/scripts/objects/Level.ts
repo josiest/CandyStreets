@@ -54,9 +54,6 @@ export default class Level extends Phaser.GameObjects.Container {
                 if (tiledObject.height !== undefined) {
                     sprite.scaleY = tiledObject.height / sprite.height
                 }
-                console.log(tiledObject)
-                console.log(tiledObject.width, sprite.width)
-                console.log(tiledObject.height, sprite.height)
             })
         }
         
