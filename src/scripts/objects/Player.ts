@@ -51,11 +51,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
             this.setVelocity(0, 0);
         }
-        // Slow down if currently moving at all and no input
-        if (this.body.velocity.lengthSq() > 0 && !isKeyDown) {
+        // Slow down if currently moving and input isn't going along with the motion (per axis)
+        if (this.body.velocity.lengthSq() > 0) {
             let friction = this.body.velocity.clone();
             friction.negate().scale(this.frictionConstant);
-            this.setAcceleration(friction.x, friction.y);
+            if (Math.sign(this.body.velocity.x) != Math.sign(acceleration.x)) {
+                this.setAccelerationX(acceleration.x + friction.x);
+            }
+            if (Math.sign(this.body.velocity.y) != Math.sign(acceleration.y)) {
+                this.setAccelerationY(acceleration.y + friction.y);
+            }
         }
         // Otherwise don't go faster than max speed
         let velocity = this.body.velocity.clone();
