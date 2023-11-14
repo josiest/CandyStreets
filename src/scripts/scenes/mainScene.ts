@@ -31,6 +31,7 @@ export default class MainScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
         camera.setBounds(0, 0, worldWidth, worldHeight);
         camera.startFollow(this.player, true, 0.075, 0.075);
+        camera.zoom = 0.32;
     }
 
     update(time, deltaTime) {
