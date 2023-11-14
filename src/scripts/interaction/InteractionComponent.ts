@@ -6,7 +6,7 @@ export default class InteractionComponent extends Phaser.GameObjects.Zone {
     gameObject: Phaser.GameObjects.GameObject;
 
     isOverlappingPlayer: boolean = false;
-    promptText: Phaser.GameObjects.Text;
+    promptText: string;
 
     onPlayerEnterOverlap: PlayerInteractionEvent;
     onPlayerLeaveOverlap: InteractionEvent;
@@ -28,22 +28,15 @@ export default class InteractionComponent extends Phaser.GameObjects.Zone {
     }
 
     dialog(interactionPrompt: string) {
-         this.promptText = this.scene
-            .add.text((this.scene.scale.width / 2) - 100,
-                      this.scene.scale.height - 100,
-                      `e ${interactionPrompt}`,
-                      { color: '#0', fontSize: 30 })
-            .setVisible(false);
+        this.promptText = interactionPrompt;
         return this;
     }
 
     showText() {
-        if (this.isOverlappingPlayer) {
-            this.promptText.setVisible(true);
-        }
+        this.scene.events.emit('show-prompt', `e ${this.promptText}`);
     }
     hideText() {
-        this.promptText.setVisible(false);
+        this.scene.events.emit('hide-prompt');
     }
 
     handleOverlap(player: Player) {
@@ -51,7 +44,7 @@ export default class InteractionComponent extends Phaser.GameObjects.Zone {
             if (this.onPlayerEnterOverlap) {
                 this.onPlayerEnterOverlap(player);
             }
-            this.promptText.setVisible(true);
+            this.showText();
         }
         this.isOverlappingPlayer = true;
     }
@@ -65,7 +58,7 @@ export default class InteractionComponent extends Phaser.GameObjects.Zone {
             if (this.onPlayerLeaveOverlap) {
                 this.onPlayerLeaveOverlap();
             }
-            this.promptText.setVisible(false);
+            this.hideText();
             this.isOverlappingPlayer = false;
         }
     }

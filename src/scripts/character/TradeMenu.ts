@@ -1,6 +1,8 @@
+import UIScene from '../scenes/UIScene'
+
 type MenuEvent = () => void;
 
-export default class TradeMenu extends Phaser.GameObjects.GameObject {
+export default class TradeMenu extends Phaser.GameObjects.Container {
     padding: number = 100;
     backgroundColor: number = 0x1a1a1a;
     rectRadius: number = 20;
@@ -9,13 +11,9 @@ export default class TradeMenu extends Phaser.GameObjects.GameObject {
     rect: Phaser.Geom.Rectangle;
 
     onDeactivated: MenuEvent;
-
-    static withParent(gameObject: Phaser.GameObjects.GameObject) {
-        return new TradeMenu(gameObject);
-    }
-
-    constructor(gameObject: Phaser.GameObjects.GameObject) {
-        super(gameObject.scene, 'TradeMenu');
+    constructor(scene: Phaser.Scene) {
+        super(scene);
+        this.setSize(scene.scale.width, scene.scale.height);
         this.graphics = this.scene.add.graphics().setDepth(1);
 
         const width = this.scene.scale.width - 2*this.padding;
@@ -29,6 +27,8 @@ export default class TradeMenu extends Phaser.GameObjects.GameObject {
                 this.deactivate();
             });
         }
+
+        this.redraw();
     }
 
     isActive() {
@@ -39,11 +39,12 @@ export default class TradeMenu extends Phaser.GameObjects.GameObject {
         return this.redraw();
     }
     deactivate() {
-        this.graphics.setVisible(false);
+        this.graphics.clear();
+        UIScene.popContent(this.scene);
+
         if (this.onDeactivated) {
             this.onDeactivated();
         }
-        return this;
     }
     redraw() {
         this.graphics.clear()

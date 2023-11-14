@@ -43,8 +43,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             return;
         }
         // Stop if currently moving below min speed and no input
-        const isKeyDown = left.isDown || right.isDown || up.isDown || down.isDown;
-        if (this.body.velocity.lengthSq() < this.minSpeed * this.minSpeed && !isKeyDown) {
+        const isKeyDown = left.isDown || right.isDown
+                         || up.isDown || down.isDown;
+
+        if (this.body.velocity.lengthSq() < this.minSpeed * this.minSpeed
+                && !isKeyDown) {
+
             this.setVelocity(0, 0);
         }
         // Slow down if currently moving at all and no input

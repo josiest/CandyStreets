@@ -8,7 +8,7 @@ export default class MainScene extends Phaser.Scene {
     characterSystem: CharacterSystem;
 
     constructor() {
-        super({ key: 'MainScene' });
+        super({ key: 'main-scene' });
     }
 
     create() {
