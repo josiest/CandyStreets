@@ -12,11 +12,14 @@ export default class MainScene extends Phaser.Scene {
     }
 
     create() {
-        const sceneWidth = this.cameras.main.width;
-        const sceneHeight = this.cameras.main.height;
+        const level = new Level(this);
+        const camera = this.cameras.main;
+        const sceneWidth = camera.width;
+        const sceneHeight = camera.height;
+        const worldWidth = level.map.widthInPixels;
+        const worldHeight = level.map.heightInPixels;
 
-        this.level = new Level(this);
-
+        this.level = level;
         this.player = new Player(this, sceneWidth / 2, sceneHeight / 2);
 
         this.characterSystem = new CharacterSystem(this, this.player);
@@ -25,9 +28,9 @@ export default class MainScene extends Phaser.Scene {
         this.characterSystem.add(this, 'candy-pirate',
                                  3 * sceneWidth / 4, sceneHeight / 5);
 
-        this.cameras.main.setBounds(0, 0, 
-                                    this.level.map.widthInPixels, this.level.map.heightInPixels);
-        this.cameras.main.startFollow(this.player, true, 0.075, 0.075);
+        this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
+        camera.setBounds(0, 0, worldWidth, worldHeight);
+        camera.startFollow(this.player, true, 0.075, 0.075);
     }
 
     update(time, deltaTime) {

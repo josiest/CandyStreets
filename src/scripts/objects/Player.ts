@@ -11,6 +11,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // Setup Physics
         scene.physics.add.existing(this);
+        this.setCollideWorldBounds(true);
 
         // Setup Input
         scene.input.keyboard.addKeys("W,A,S,D");
