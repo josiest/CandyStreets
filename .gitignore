@@ -188,3 +188,6 @@ plugins/spine*/spine-runtimes/
 
 # Ignore temp assets
 src/assets/temp
+
+# Ignore tiled session (this is just meant for local use and will be super noisy otherwise)
+*.tiled-session
