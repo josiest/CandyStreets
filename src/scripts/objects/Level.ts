@@ -1,65 +1,168 @@
 import { Tilemaps } from "phaser";
+import CharacterSystem from "../character/CharacterSystem";
 
 export default class Level extends Phaser.GameObjects.Container {
-    map: Phaser.Tilemaps.Tilemap
+    map: Phaser.Tilemaps.Tilemap // parsed map data
+    mapJSON: any // workaround for Phaser not fully parsing Tiled data
     baseLayer: Phaser.Tilemaps.TilemapLayer | null
     objectsLayer: Phaser.GameObjects.Container
 
     constructor(scene:Phaser.Scene) {
-        super(scene);
-        const map = scene.make.tilemap({key: 'tilemap'})
-        const tileset = map.addTilesetImage('temp-tiles_extruded', 'tiles')
-        const objectsLayerData = map.getObjectLayer("Objects")
+        // NOTE: Apparently Phaser doesn't fully parse the Tiled data,
+        // effectively losing a large chunk of features from Tiled, 
+        // particularly custom properties & collision data
+        // (at least for tilesets comprised of individual images).
+        //
+        // To work around this, we can still at least access the JSON of the file itself
+        // via game.cache.tilemap.get(assetKey).
 
-        this.map = map;
-        this.objectsLayer = new Phaser.GameObjects.Container(scene)
+        super(scene);
+        const mapKey = 'tilemap';
+        
+        this.map = scene.make.tilemap({key: mapKey});
+        this.mapJSON = scene.game.cache.tilemap.get(mapKey).data;
+        this.objectsLayer = new Phaser.GameObjects.Container(scene);
+
+        const tileset = this.map.addTilesetImage('temp-tiles_extruded', 'tiles');
         
         if (tileset === null) {
-            throw new Error("failed to load tileset for level tilemap")
+            throw new Error("failed to load tileset for level tilemap");
         } else {
-            this.baseLayer = map.createLayer("Base", tileset, 0, 0)
+            this.baseLayer = this.map.createLayer("Base", tileset, 0, 0);
         }
 
         if (this.baseLayer === null) {
-            throw new Error("failed to create base layer from tilemap")
+            throw new Error("failed to create base layer from tilemap");
         } else {
-            this.add(this.baseLayer)
-        }
-
-        if (objectsLayerData === null) {
-            console.warn("no objects layer detected -- is this intentional?")
-        } else {
-            objectsLayerData.objects.forEach((tiledObject, index) => {
-                const imageId = tiledObject.gid
-                const x = tiledObject.x
-                const y = tiledObject.y
-                
-                if (imageId === undefined) {
-                    console.log("skipping object with undefined gid")
-                    return
-                }
-                if (x === undefined || y === undefined) {
-                    console.warn("WARNING: x and/or y position for tile object is undefined. ignoring it")
-                    return
-                }
-                
-                // x/y positioning might get weird if we scale -- need to keep an eye on this
-                const sprite = new Phaser.GameObjects.Sprite(scene, x, y, `img-tile-${imageId}`)
-                this.objectsLayer.add(sprite)
-                sprite.x = x
-                sprite.y = y
-                if (tiledObject.width !== undefined) {
-                    sprite.scaleX = tiledObject.width / sprite.width
-                }
-                if (tiledObject.height !== undefined) {
-                    sprite.scaleY = tiledObject.height / sprite.height
-                }
-            })
+            this.add(this.baseLayer);
         }
         
-        this.add(this.objectsLayer)
+        this.add(this.objectsLayer);
 
-        scene.add.existing(this)
-        window["levelContainer"] = this
+        scene.add.existing(this);
+    }
+
+    spawnObjects(characterSystem:CharacterSystem) {
+        const objectsLayerData = this.map.getObjectLayer("Objects");
+        if (objectsLayerData === null) {
+            console.warn("no objects layer detected in Tiled map -- is this intentional?");
+        } else {
+            objectsLayerData.objects.forEach((tiledObject, index) => {
+                const imageId = tiledObject.gid;
+                const x = tiledObject.x;
+                const y = tiledObject.y;
+                const objectName = tiledObject.name;
+                let npcId = this.getCustomString(tiledObject, "npcId");
+
+                if (imageId === undefined) {
+                    console.log("skipping object with undefined gid");
+                    return;
+                }
+                if (x === undefined || y === undefined) {
+                    console.warn("WARNING: x and/or y position for tile object is undefined. ignoring it");
+                    return;
+                }
+                
+                if (npcId !== null) {
+                    const npc = characterSystem.add(this.scene, npcId, x, y);
+                    // note: character system is currently handling instantiation of character
+                    // with sprite & image ID, colliders, etc
+                    // this.objectsLayer.add(npc); // characterSystem has its own display group
+                    this.transformSpriteToMatch(npc, tiledObject);
+                } else {
+                    const sprite = new Phaser.GameObjects.Sprite(this.scene, x, y, `img-tile-${imageId}`);
+                    this.objectsLayer.add(sprite);
+                    this.transformSpriteToMatch(sprite, tiledObject);
+                }
+            });
+        }
+    }
+
+    transformSpriteToMatch(sprite: Phaser.GameObjects.Sprite, tiledObject:Phaser.Types.Tilemaps.TiledObject): void {
+        sprite.x = tiledObject.x!;
+        sprite.y = tiledObject.y!;
+        if (tiledObject.width !== undefined) {
+            sprite.scaleX = tiledObject.width / sprite.width;
+        }
+        if (tiledObject.height !== undefined) {
+            sprite.scaleY = tiledObject.height / sprite.height;
+        }
+        if (tiledObject.rotation !== undefined) {
+            sprite.rotation = tiledObject.rotation;
+        }
+    }
+
+    getCustomString(tiledObject:Phaser.Types.Tilemaps.TiledObject, propName:string): string | null {
+        // note: Phaser doesn't seem to be registering custom properties for multi-image tilesets.
+        // (It's also transforming Tiled data into a very different shape from Tiled's JSON,
+        // e.g. by making each separate image into as its own "tileset")
+        //
+        // In order to get around the missing data, we can still look at the original JSON object,
+        // which Phaser has cached after loading.
+        //
+        // For now, we're storing the cached JSON object under this.mapJSON.
+        console.log(this.map);
+
+        // Looking at the Tiled JSON object:
+        console.log(this.mapJSON);
+        const sourceTileset = this.mapJSON.tilesets.find((tilesetDef)=>{
+            return (tilesetDef.firstgid <= tiledObject.gid! &&
+            tilesetDef.firstgid + tilesetDef.tilecount > tiledObject.gid!);
+        });
+        if (sourceTileset === undefined) {
+            throw new Error(`unable to find tileset for object "${tiledObject.name}" (id: ${tiledObject.id})`);
+        } else {
+            console.log('found tileset:', sourceTileset);
+        }
+
+        const tileDefinition = sourceTileset.tiles.find((tileEntry)=>{
+            return tileEntry.id + sourceTileset.firstgid == tiledObject.gid!;
+        });
+
+        if (tileDefinition == undefined) {
+            throw new Error(`did't find the tile (gid: ${tiledObject.gid}) in the tileset we expected to (named "${sourceTileset.name}") -- yikes!`);
+        } else {
+            console.log('found tile definition:', tileDefinition);
+        }
+
+        if (tileDefinition.properties == null) {
+            console.log('tile has no properties listed', tileDefinition);
+            return null;
+        }
+
+        let prop = tileDefinition.properties.find((prop)=>prop.name === propName);
+        if (prop === undefined) {
+            console.log(`tiledObject does not have property named ${propName}`, tiledObject);
+            return null;
+        }
+
+        if (prop.value === undefined) {
+            console.warn(`tiledObject has no value for property named ${propName} -- probably want to check on that!`, tiledObject);
+            return null;
+        }
+
+        console.log(`YAY found property ${propName} in tiledObject`, tiledObject, prop.value);
+
+        return prop.value as string;
+
+        // (saving a bit of code from trying to work directly with Phaser)
+        // if (tiledObject.properties === undefined) {
+        //     // in the demo, they use:
+        //     // const tile = this.map.getTileAt(pointerTileX, pointerTileY);
+        //     // this.propertiesText.setText(`Properties: ${JSON.stringify(tile.properties)}`);
+        //     // but currently, there are no properties for this tile
+        //     console.log('tiledObject does not have properties', tiledObject);
+        //     return null;
+        // }
+        // a full list of places I've checked:
+        // - tile.properties
+        // - map.tilesets[index].tileProperties // presumably keyed by tile gid, but I've only seen it empty
+        // - map.tilesets[index].getTileProperties(tileIndex)
+        // - map.tilesets[index].tileData // presumably keyed by tile gid, but I've only seen it empty
+        // - map.tilesets[index].getTileData(tileIndex)
+        // - imageCollections[index].properties // presumably keyed by tile gid, but I've only seen it empty
+        // It's possible that this lack of support only extends to multi-image tilesets though.
+        //
+        // console.log(tiledObject.properties);
     }
 }

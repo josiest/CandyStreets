@@ -33,6 +33,7 @@ export default class CharacterSystem extends Phaser.GameObjects.GameObject {
         );
         this.characters.add(character);
         this.interactionBounds.add(character.interaction);
+        return character;
     }
 
     update(time, deltaTime) {

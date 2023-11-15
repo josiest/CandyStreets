@@ -64,8 +64,8 @@
     ],
     "project": "candystreets-world.tiled-project",
     "recentFiles": [
-        "test-map.tmj",
         "LooseImages.tsx",
+        "test-map.tmj",
         "LooseImages.tsj",
         "bg-tileset.tsx",
         "test-map.tmx"

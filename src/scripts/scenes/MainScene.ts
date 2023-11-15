@@ -23,6 +23,9 @@ export default class MainScene extends Phaser.Scene {
         this.player = new Player(this, sceneWidth / 2, sceneHeight / 2);
 
         this.characterSystem = new CharacterSystem(this, this.player);
+
+        level.spawnObjects(this.characterSystem);
+
         this.characterSystem.add(this, 'candy-lama',
                                  sceneWidth / 4, sceneHeight / 5);
         this.characterSystem.add(this, 'candy-pirate',
