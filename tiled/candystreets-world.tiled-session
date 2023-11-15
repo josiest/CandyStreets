@@ -50,8 +50,8 @@
             }
         }
     },
-    "last.exportedFilePath": "/Users/resident/Documents/code/group-jams/seatle-slow-game-jam-2023/candy-nights/CandyStreets/src/assets",
-    "last.imagePath": "/Users/resident/Documents/code/group-jams/seatle-slow-game-jam-2023/candy-nights/CandyStreets/tiled",
+    "last.exportedFilePath": "/Users/thumbtack/Documents/jams/seatle-slow-game-jam-2023/candy-nights/CandyStreets/src/assets",
+    "last.imagePath": "/Users/thumbtack/Documents/jams/seatle-slow-game-jam-2023/candy-nights/CandyStreets/tiled",
     "lastUsedTilesetExportFilter": "JSON tileset files (*.tsj *.json)",
     "map.height": 50,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
@@ -63,6 +63,7 @@
         "test-map.tmj"
     ],
     "project": "candystreets-world.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
         "LooseImages.tsx",
         "test-map.tmj",
