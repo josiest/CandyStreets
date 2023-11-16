@@ -27,6 +27,9 @@
   </objectgroup>
  </tile>
  <tile id="3">
+  <properties>
+   <property name="npcId" value="candy-lama"/>
+  </properties>
   <image width="128" height="128" source="temp/candy-lama.png"/>
  </tile>
  <tile id="4">

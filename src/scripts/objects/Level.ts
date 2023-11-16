@@ -8,6 +8,7 @@ export default class Level extends Phaser.GameObjects.Container {
     baseLayer: Phaser.Tilemaps.TilemapLayer | null
     collisionLayer: Phaser.Tilemaps.TilemapLayer | null
     objectsLayer: Phaser.GameObjects.Container
+    playerStartPosition: {x:number, y:number}
 
     constructor(scene:Phaser.Scene) {
         // NOTE: Apparently Phaser doesn't fully parse the Tiled data,
@@ -52,7 +53,7 @@ export default class Level extends Phaser.GameObjects.Container {
         scene.add.existing(this);
     }
 
-    spawnObjects(characterSystem:CharacterSystem) {
+    processObjects(characterSystem:CharacterSystem) {
         const objectsLayerData = this.map.getObjectLayer("Objects");
         if (objectsLayerData === null) {
             console.warn("no objects layer detected in Tiled map -- is this intentional?");
@@ -64,12 +65,18 @@ export default class Level extends Phaser.GameObjects.Container {
                 const objectName = tiledObject.name;
                 let npcId = this.getCustomString(tiledObject, "npcId");
 
-                if (imageId === undefined) {
-                    console.log("skipping object with undefined gid");
+                if (x === undefined || y === undefined) {
+                    console.warn("WARNING: x and/or y position for tile object is undefined. skipping this one");
                     return;
                 }
-                if (x === undefined || y === undefined) {
-                    console.warn("WARNING: x and/or y position for tile object is undefined. ignoring it");
+
+                if (objectName === "PlayerStart") {
+                    this.playerStartPosition = {x,y};
+                    return;
+                }
+
+                if (imageId === undefined) {
+                    console.log("skipping object with undefined gid");
                     return;
                 }
                 

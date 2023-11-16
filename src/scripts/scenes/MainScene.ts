@@ -24,22 +24,33 @@ export default class MainScene extends Phaser.Scene {
 
         this.characterSystem = new CharacterSystem(this, this.player);
 
-        level.spawnObjects(this.characterSystem);
+        level.processObjects(this.characterSystem);
         level.prepCollision(this.player);
 
-        this.characterSystem.add(this, 'candy-lama',
-                                 sceneWidth / 4, sceneHeight / 5);
-        this.characterSystem.add(this, 'candy-pirate',
-                                 3 * sceneWidth / 4, sceneHeight / 5);
+        // this.characterSystem.add(this, 'candy-lama',
+        //                          sceneWidth / 4, sceneHeight / 5);
+        // this.characterSystem.add(this, 'candy-pirate',
+        //                          3 * sceneWidth / 4, sceneHeight / 5);
 
         this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
         camera.setBounds(0, 0, worldWidth, worldHeight);
-        camera.startFollow(this.player, true, 0.075, 0.075);
         camera.zoom = 0.32;
+
+        this.jumpPlayerToPosition(level.playerStartPosition.x, level.playerStartPosition.y);
+        camera.startFollow(this.player, true, 0.075, 0.075);
     }
 
     update(time, deltaTime) {
         this.player.update(time, deltaTime);
         this.characterSystem.update(time, deltaTime);
+    }
+
+    jumpPlayerToPosition(x, y, snapCamera = true) {
+        this.player.setX(x);
+        this.player.setY(y);
+
+        if (snapCamera) {
+            this.cameras.main.centerOn(x,y);
+        }
     }
 }
