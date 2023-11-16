@@ -1,10 +1,12 @@
 import { Tilemaps } from "phaser";
 import CharacterSystem from "../character/CharacterSystem";
+import Player from "./Player";
 
 export default class Level extends Phaser.GameObjects.Container {
     map: Phaser.Tilemaps.Tilemap // parsed map data
     mapJSON: any // workaround for Phaser not fully parsing Tiled data
     baseLayer: Phaser.Tilemaps.TilemapLayer | null
+    collisionLayer: Phaser.Tilemaps.TilemapLayer | null
     objectsLayer: Phaser.GameObjects.Container
 
     constructor(scene:Phaser.Scene) {
@@ -29,16 +31,24 @@ export default class Level extends Phaser.GameObjects.Container {
             throw new Error("failed to load tileset for level tilemap");
         } else {
             this.baseLayer = this.map.createLayer("Base", tileset, 0, 0);
+            this.collisionLayer = this.map.createLayer("Collision", tileset, 0, 0);
         }
 
         if (this.baseLayer === null) {
-            throw new Error("failed to create base layer from tilemap");
+            throw new Error("failed to create base layer from tilemap -- is there a layer named \"Base\"?");
         } else {
             this.add(this.baseLayer);
         }
-        
+
         this.add(this.objectsLayer);
 
+        if (this.collisionLayer === null) {
+            throw new Error("failed to create collision layer from tilemap -- is there a layer named \"Collision\"?");
+        } else {
+            this.add(this.collisionLayer);
+            this.collisionLayer.setVisible(false);
+        }
+        
         scene.add.existing(this);
     }
 
@@ -76,6 +86,16 @@ export default class Level extends Phaser.GameObjects.Container {
                 }
             });
         }
+    }
+
+    prepCollision(player:Player):void {
+        if (this.collisionLayer == null) {
+            throw new Error("can't prep collision -- there's no collision layer");
+        }
+        this.collisionLayer.setCollisionByProperty({ collidable: true });
+        this.scene.physics.add.collider(player, this.collisionLayer);
+        // const debugGraphics = this.scene.add.graphics();
+        // this.map.renderDebug(debugGraphics, {tileColor: 0x00FF00});
     }
 
     transformSpriteToMatch(sprite: Phaser.GameObjects.Sprite, tiledObject:Phaser.Types.Tilemaps.TiledObject): void {

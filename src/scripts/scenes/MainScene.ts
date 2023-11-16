@@ -25,6 +25,7 @@ export default class MainScene extends Phaser.Scene {
         this.characterSystem = new CharacterSystem(this, this.player);
 
         level.spawnObjects(this.characterSystem);
+        level.prepCollision(this.player);
 
         this.characterSystem.add(this, 'candy-lama',
                                  sceneWidth / 4, sceneHeight / 5);
