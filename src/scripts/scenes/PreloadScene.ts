@@ -20,37 +20,37 @@ const placedImages = [
   // copy-pasted from /tiled/LooseImages.tsj, just to simplify the preload process
   {
    "id":0,
-   "image":"temp/pirate-house.png",
+   "image":"img/candy-house-1.png",
    "imageheight":429,
    "imagewidth":513
   }, 
   {
    "id":1,
-   "image":"temp/spider-house.png",
+   "image":"img/candy-house-1.png",
    "imageheight":362,
    "imagewidth":505
   }, 
   {
    "id":2,
-   "image":"temp/spooky-house.png",
+   "image":"img/candy-house-1.png",
    "imageheight":548,
    "imagewidth":678
   }, 
   {
    "id":3,
-   "image":"temp/candy-lama.png",
+   "image":"characters/textures/candy-lama.png",
    "imageheight":128,
    "imagewidth":128
   }, 
   {
    "id":4,
-   "image":"temp/candy-pirate.png",
+   "image":"characters/textures/candy-pirate.png",
    "imageheight":128,
    "imagewidth":128
   }, 
   {
    "id":5,
-   "image":"temp/candy-cat.png",
+   "image":"characters/textures/candy-cat.png",
    "imageheight":128,
    "imagewidth":128
   }
@@ -73,14 +73,16 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   loadCharacters() {
+    this.load.image('candy-pc', 'assets/temp/candy-pc.png');
+
     this.load.image('candy-cat',
-                    'assets/temp/candy-cat.png');
+                    'assets/characters/textures/candy-cat.png');
 
     this.load.image('candy-lama',
-                    'assets/temp/candy-lama.png');
+                    'assets/characters/textures/candy-lama.png');
 
     this.load.image('candy-pirate',
-                    'assets/temp/candy-pirate.png');
+                    'assets/characters/textures/candy-pirate.png');
 
 
     this.load.json('data-candy-pirate',

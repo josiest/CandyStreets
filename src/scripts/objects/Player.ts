@@ -10,7 +10,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     //frictionConstant: number = 12;
     
     constructor(scene, x, y) {
-        super(scene, x, y, 'candy-cat');
+        super(scene, x, y, 'candy-pc');
         scene.add.existing(this);
 
         // Setup Physics

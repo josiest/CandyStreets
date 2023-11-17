@@ -420,17 +420,16 @@
          "objectalignment":"center",
          "spacing":0,
          "tilecount":6,
-         "tileheight":548,
+         "tileheight":631,
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/..\/tiled\/temp\/pirate-house.png",
-                 "imageheight":429,
-                 "imagewidth":513,
+                 "image":"img\/candy-house-1.png",
+                 "imageheight":631,
+                 "imagewidth":705,
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -464,13 +463,12 @@
                 }, 
                 {
                  "id":1,
-                 "image":"..\/..\/tiled\/temp\/spider-house.png",
-                 "imageheight":362,
-                 "imagewidth":505,
+                 "image":"img\/candy-house-1.png",
+                 "imageheight":631,
+                 "imagewidth":705,
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -493,13 +491,12 @@
                 }, 
                 {
                  "id":2,
-                 "image":"..\/..\/tiled\/temp\/spooky-house.png",
-                 "imageheight":548,
-                 "imagewidth":678,
+                 "image":"img\/candy-house-1.png",
+                 "imageheight":631,
+                 "imagewidth":705,
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -555,9 +552,9 @@
                 }, 
                 {
                  "id":3,
-                 "image":"..\/..\/tiled\/temp\/candy-lama.png",
-                 "imageheight":128,
-                 "imagewidth":128,
+                 "image":"characters\/textures\/candy-lama.png",
+                 "imageheight":631,
+                 "imagewidth":431,
                  "properties":[
                         {
                          "name":"npcId",
@@ -567,9 +564,9 @@
                 }, 
                 {
                  "id":4,
-                 "image":"..\/..\/tiled\/temp\/candy-pirate.png",
-                 "imageheight":128,
-                 "imagewidth":128,
+                 "image":"characters\/textures\/candy-pirate.png",
+                 "imageheight":631,
+                 "imagewidth":561,
                  "properties":[
                         {
                          "name":"npcId",
@@ -579,13 +576,12 @@
                 }, 
                 {
                  "id":5,
-                 "image":"..\/..\/tiled\/temp\/candy-cat.png",
-                 "imageheight":128,
-                 "imagewidth":128,
+                 "image":"characters\/textures\/candy-cat.png",
+                 "imageheight":631,
+                 "imagewidth":559,
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -613,7 +609,7 @@
                          "value":"candy-cat"
                         }]
                 }],
-         "tilewidth":678
+         "tilewidth":705
         }, 
         {
          "columns":8,
