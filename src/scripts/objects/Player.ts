@@ -1,13 +1,13 @@
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     minSpeed: number = 80.0;
-    // maxSpeed: number = 300.0;
-    // accelerationConstant: number = 800.0;
-    // frictionConstant: number = 3.5;
+    maxSpeed: number = 300.0;
+    accelerationConstant: number = 800.0;
+    frictionConstant: number = 5.5;
 
-    maxSpeed: number = 600.0;
-    accelerationConstant: number = 2100.0;
-    frictionConstant: number = 12;
+    //maxSpeed: number = 600.0;
+    //accelerationConstant: number = 2100.0;
+    //frictionConstant: number = 12;
     
     constructor(scene, x, y) {
         super(scene, x, y, 'candy-cat');
