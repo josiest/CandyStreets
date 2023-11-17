@@ -18,13 +18,12 @@ export default class InteractionComponent extends Phaser.GameObjects.Zone {
         this.gameObject = gameObject;
         this.scene.physics.add.existing(this, false);
 
-        if (this.scene.input.keyboard) {
-            this.scene.input.keyboard.on('keyup-E', event => {
-                if (this.isOverlappingPlayer && this.onPlayerInteracted) {
-                    this.onPlayerInteracted();
-                }
-            });
-        }
+        let uiScene = this.scene.scene.get('ui-scene');
+        uiScene.events.on('hud-interacted', event => {
+            if (this.isOverlappingPlayer && this.onPlayerInteracted) {
+                this.onPlayerInteracted();
+            }
+        });
     }
 
     dialog(interactionPrompt: string) {
@@ -38,7 +37,6 @@ export default class InteractionComponent extends Phaser.GameObjects.Zone {
     hideText() {
         this.scene.events.emit('hide-prompt');
     }
-
     handleOverlap(player: Player) {
         if (!this.isOverlappingPlayer) {
             if (this.onPlayerEnterOverlap) {

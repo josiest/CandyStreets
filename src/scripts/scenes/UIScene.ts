@@ -1,11 +1,12 @@
+import IActivatableWidget from '../ui/ActivatableWidget'
 import HUD from '../interaction/Hud'
 
 export default class UIScene extends Phaser.Scene {
-    stack: Array<Phaser.GameObjects.Container>;
+    stack: Array<IActivatableWidget>;
 
     constructor() {
         super({ key: 'ui-scene', active: true });
-        this.stack = new Array<Phaser.GameObjects.Container>();
+        this.stack = new Array<IActivatableWidget>();
     }
     create() {
         UIScene.pushContent(this, HUD);
@@ -20,15 +21,15 @@ export default class UIScene extends Phaser.Scene {
         }
         if (ui.stack.length > 0) {
             let current = ui.stack.at(ui.stack.length-1)!;
-            current.setVisible(false);
+            current.deactivate();
         }
         let widget = new widgetConstructor(ui);
         ui.stack.push(widget);
-        widget.setVisible(true);
+        widget.activate();
         return widget;
     }
     static popContent(scene: Phaser.Scene,
-                      content: Phaser.GameObjects.Container) {
+                      content: IActivatableWidget) {
         let ui = <UIScene> scene.scene.get('ui-scene');
         if (!ui) {
             return undefined;
@@ -39,7 +40,7 @@ export default class UIScene extends Phaser.Scene {
         ui.stack = ui.stack.filter(widget => widget !== content);
         if (ui.stack.length > 0) {
             let current = ui.stack.at(ui.stack.length-1)!;
-            current.setVisible(true);
+            current.activate();
         }
         return content;
     }

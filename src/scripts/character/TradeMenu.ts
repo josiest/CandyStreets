@@ -1,12 +1,15 @@
+import IActivatableWidget from '../ui/ActivatableWidget'
 import UIScene from '../scenes/UIScene'
 
 type MenuEvent = () => void;
 
-export default class TradeMenu extends Phaser.GameObjects.Container {
+export default class TradeMenu extends Phaser.GameObjects.Container
+                               implements IActivatableWidget {
     padding: number = 100;
     backgroundColor: number = 0x1a1a1a;
     rectRadius: number = 20;
 
+    isActive: boolean;
     graphics: Phaser.GameObjects.Graphics;
     rect: Phaser.Geom.Rectangle;
 
@@ -31,14 +34,13 @@ export default class TradeMenu extends Phaser.GameObjects.Container {
         this.redraw();
     }
 
-    isActive() {
-        return this.graphics.visible;
-    }
     activate() {
+        this.isActive = true;
         this.graphics.setVisible(true)
         return this.redraw();
     }
     deactivate() {
+        this.isActive = false;
         this.graphics.clear();
         UIScene.popContent(this.scene, this);
 

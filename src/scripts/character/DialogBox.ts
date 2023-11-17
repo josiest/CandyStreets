@@ -1,9 +1,11 @@
+import IActivatableWidget from '../ui/ActivatableWidget'
 import UIScene from '../scenes/UIScene'
 import { NPCData } from '../../data/NPCData'
 
 type DialogEvent = () => void;
 
-export default class DialogBox extends Phaser.GameObjects.Container {
+export default class DialogBox extends Phaser.GameObjects.Container
+                               implements IActivatableWidget {
     boxHorizontalPadding: number = 100;
     boxTopPadding: number = 20;
     boxBottomPadding: number = 100;
@@ -30,6 +32,7 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     nameTextVerticalPadding: number = 11;
 
     graphics: Phaser.GameObjects.Graphics;
+    isActive: boolean;
 
     boxRect: Phaser.Geom.Rectangle;
     dialogText: Phaser.GameObjects.Text;
@@ -67,7 +70,9 @@ export default class DialogBox extends Phaser.GameObjects.Container {
         this.handleCancel = callback;
         if (this.scene.input.keyboard) {
             this.scene.input.keyboard.on('keyup-ESC', event => {
-                this.handleCancel();
+                if (this.isActive) {
+                    this.handleCancel();
+                }
             });
         }
         return this;
@@ -129,14 +134,13 @@ export default class DialogBox extends Phaser.GameObjects.Container {
         return this;
     }
 
-    isActive() {
-        return this.graphics.visible;
-    }
     activate() {
+        this.isActive = true;
         this.graphics.setVisible(true)
         return this.redraw();
     }
     deactivate() {
+        this.isActive = false;
         this.graphics.clear();
         this.nameText.setVisible(false);
         this.dialogText.setVisible(false);
