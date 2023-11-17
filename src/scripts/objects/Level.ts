@@ -80,7 +80,7 @@ export default class Level extends Phaser.GameObjects.Container {
                     return;
                 }
                 
-                if (npcId !== null) {
+                if (npcId != null && npcId != undefined) {
                     const npc = characterSystem.add(this.scene, npcId, x, y);
                     // note: character system is currently handling instantiation of character
                     // with sprite & image ID, colliders, etc
