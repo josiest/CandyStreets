@@ -128,10 +128,10 @@ export default class Level extends Phaser.GameObjects.Container {
         // which Phaser has cached after loading.
         //
         // For now, we're storing the cached JSON object under this.mapJSON.
-        console.log(this.map);
+        // console.log(this.map);
 
         // Looking at the Tiled JSON object:
-        console.log(this.mapJSON);
+        // console.log(this.mapJSON);
         const sourceTileset = this.mapJSON.tilesets.find((tilesetDef)=>{
             return (tilesetDef.firstgid <= tiledObject.gid! &&
             tilesetDef.firstgid + tilesetDef.tilecount > tiledObject.gid!);
@@ -139,7 +139,7 @@ export default class Level extends Phaser.GameObjects.Container {
         if (sourceTileset === undefined) {
             throw new Error(`unable to find tileset for object "${tiledObject.name}" (id: ${tiledObject.id})`);
         } else {
-            console.log('found tileset:', sourceTileset);
+            // console.log('found tileset:', sourceTileset);
         }
 
         const tileDefinition = sourceTileset.tiles.find((tileEntry)=>{
@@ -149,7 +149,7 @@ export default class Level extends Phaser.GameObjects.Container {
         if (tileDefinition == undefined) {
             throw new Error(`did't find the tile (gid: ${tiledObject.gid}) in the tileset we expected to (named "${sourceTileset.name}") -- yikes!`);
         } else {
-            console.log('found tile definition:', tileDefinition);
+            // console.log('found tile definition:', tileDefinition);
         }
 
         if (tileDefinition.properties == null) {
@@ -168,7 +168,7 @@ export default class Level extends Phaser.GameObjects.Container {
             return null;
         }
 
-        console.log(`YAY found property ${propName} in tiledObject`, tiledObject, prop.value);
+        // console.log(`YAY found property ${propName} in tiledObject`, tiledObject, prop.value);
 
         return prop.value as string;
 

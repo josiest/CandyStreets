@@ -40,26 +40,53 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     cancelText: Phaser.GameObjects.Text;
     continueText: Phaser.GameObjects.Text;
 
+    handleCancel: DialogEvent;
+    handleContinue: DialogEvent;
     onDeactivated: DialogEvent;
+
     constructor(scene: Phaser.Scene) {
         super(scene);
-        if (this.scene.input.keyboard) {
-            this.scene.input.keyboard.on('keyup-ESC', event => {
-                this.deactivate();
-            });
-        }
         this.setSize(scene.scale.width, scene.scale.height);
         this.boxRect = this.computeBoxRect();
         this.nameRect = this.computeNameRect();
         this.graphics = this.scene.add.graphics().setDepth(1);
         this.redraw();
+
+        this.buildTextElements();
     }
 
-    setCharacter(character: NPCData) {
+    setNameText(characterName: string) {
+        this.nameText.setText(characterName);
+        return this;
+    }
+    setDialogText(dialogText: string) {
+        this.dialogText.setText(dialogText);
+        return this;
+    }
+    onCancel(callback: DialogEvent) {
+        this.handleCancel = callback;
+        if (this.scene.input.keyboard) {
+            this.scene.input.keyboard.on('keyup-ESC', event => {
+                this.handleCancel();
+            });
+        }
+        return this;
+    }
+    onContinue(callback: DialogEvent) {
+        this.handleContinue = callback;
+        if (this.scene.input.keyboard) {
+            this.scene.input.keyboard.on('keyup-E', event => {
+                this.handleContinue();
+            });
+        }
+        return this;
+    }
+
+    buildTextElements() {
         this.nameText = this.scene.add.text(
             this.nameRect.x + this.nameTextHorizontalPadding,
             this.nameRect.y + this.nameTextVerticalPadding,
-            character.name,
+            "Character Name",
             { fontSize: `${this.textSize}px`,
               color: `#${this.nameTextColor.toString(16)}` }
         )
@@ -71,7 +98,7 @@ export default class DialogBox extends Phaser.GameObjects.Container {
         this.dialogText = this.scene.add.text(
             this.boxRect.x + this.boxTextHorizontalPadding,
             this.boxRect.y + this.boxTextTopPadding,
-            character.returnDialog,
+            "Lorem ipsum dolor sit amet",
             { fontSize: `${this.textSize}px`,
               color: `#${this.boxTextColor.toString(16)}`,
               wordWrap: { width: dialogTextWidth, useAdvancedWrap: true } }
