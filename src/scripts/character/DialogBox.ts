@@ -146,7 +146,6 @@ export default class DialogBox extends Phaser.GameObjects.Container
         this.dialogText.setVisible(false);
         this.cancelText.setVisible(false);
         this.continueText.setVisible(false);
-        UIScene.popContent(this.scene, this);
 
         if (this.onDeactivated) {
             this.onDeactivated();

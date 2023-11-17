@@ -44,7 +44,7 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
 
     handleCancel(dialogBox: DialogBox) {
         if (dialogBox.dialogText.text == this.npcData.farewellDialog) {
-            dialogBox.deactivate();
+            UIScene.popContent(this.scene, dialogBox);
         }
         else {
             dialogBox.dialogText.setText(this.npcData.farewellDialog);
@@ -52,7 +52,7 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
     }
     handleContinue(dialogBox: DialogBox) {
         if (dialogBox.dialogText.text == this.npcData.farewellDialog) {
-            dialogBox.deactivate();
+            UIScene.popContent(this.scene, dialogBox);
         }
     }
 }

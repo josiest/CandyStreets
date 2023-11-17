@@ -38,6 +38,7 @@ export default class UIScene extends Phaser.Scene {
             return undefined;
         }
         ui.stack = ui.stack.filter(widget => widget !== content);
+        content.deactivate();
         if (ui.stack.length > 0) {
             let current = ui.stack.at(ui.stack.length-1)!;
             current.activate();
