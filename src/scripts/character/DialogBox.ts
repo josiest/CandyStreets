@@ -19,20 +19,15 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     nameTextHorizontalPadding: number = 10;
 
     graphics: Phaser.GameObjects.Graphics;
-    rect: Phaser.Geom.Rectangle;
+    boxRect: Phaser.Geom.Rectangle;
+    nameRect: Phaser.Geom.Rectangle;
 
     onDeactivated: DialogEvent;
     constructor(scene: Phaser.Scene) {
         super(scene);
         this.setSize(scene.scale.width, scene.scale.height);
         this.graphics = this.scene.add.graphics().setDepth(1);
-
-        const width = this.scene.scale.width - 2*this.boxHorizontalPadding;
-        const y = this.scene.scale.height - this.boxBottomPadding
-                                          - this.boxHeight;
-
-        this.rect = new Phaser.Geom.Rectangle(this.boxHorizontalPadding, y,
-                                              width, this.boxHeight);
+        this.boxRect = this.computeBoxRect();
 
         if (this.scene.input.keyboard) {
             this.scene.input.keyboard.on('keyup-ESC', event => {
@@ -41,6 +36,15 @@ export default class DialogBox extends Phaser.GameObjects.Container {
         }
 
         this.redraw();
+    }
+
+    computeBoxRect() {
+        const width = this.scene.scale.width - 2*this.boxHorizontalPadding;
+        const y = this.scene.scale.height - this.boxBottomPadding
+                                          - this.boxHeight;
+
+        return new Phaser.Geom.Rectangle(this.boxHorizontalPadding, y,
+                                         width, this.boxHeight);
     }
 
     isActive() {
@@ -61,8 +65,8 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     redraw() {
         this.graphics.clear()
             .fillStyle(this.boxBackgroundColor, 1)
-            .fillRoundedRect(this.rect.x, this.rect.y,
-                             this.rect.width, this.rect.height);
+            .fillRoundedRect(this.boxRect.x, this.boxRect.y,
+                             this.boxRect.width, this.boxRect.height);
         return this;
     }
 
