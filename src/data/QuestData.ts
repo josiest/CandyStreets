@@ -1,3 +1,5 @@
+import { NPCId } from './NPCData'
+
 type QuestId = string;
 
 interface ItemTransfer {

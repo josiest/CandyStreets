@@ -1,4 +1,4 @@
-type NPCId = string;
+export type NPCId = string;
 
 export interface TraderPurchase {
   item: ItemId,
