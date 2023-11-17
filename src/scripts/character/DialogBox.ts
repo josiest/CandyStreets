@@ -10,7 +10,11 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     boxRectRadius: number = 20;
     boxHeight: number = 200;
     boxBackgroundColor: number = 0x1a1a1a;
+
+    textSize: number = 25;
     boxTextColor: number = 0xffffff;
+    boxTextTopPadding: number = 60;
+    boxTextHorizontalPadding: number = 40;
 
     nameLeftPadding: number = 50;
     nameRectRadius: number = 10;
@@ -19,7 +23,6 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     nameBackgroundColor: number = 0xff4dd2;
 
     nameTextColor: number = 0x1a1a1a;
-    nameTextSize: number = 25;
     nameTextHorizontalPadding: number = 20;
     nameTextVerticalPadding: number = 11;
 
@@ -49,8 +52,21 @@ export default class DialogBox extends Phaser.GameObjects.Container {
             this.nameRect.x + this.nameTextHorizontalPadding,
             this.nameRect.y + this.nameTextVerticalPadding,
             character.name,
-            { fontSize: `${this.nameTextSize}px`,
+            { fontSize: `${this.textSize}px`,
               color: `#${this.nameTextColor.toString(16)}` }
+        )
+        .setDepth(20);
+
+        const dialogTextWidth = this.boxRect.width
+                              - 2*this.boxTextHorizontalPadding;
+
+        this.dialogText = this.scene.add.text(
+            this.boxRect.x + this.boxTextHorizontalPadding,
+            this.boxRect.y + this.boxTextTopPadding,
+            character.returnDialog,
+            { fontSize: `${this.textSize}px`,
+              color: `#${this.boxTextColor.toString(16)}`,
+              wordWrap: { width: dialogTextWidth, useAdvancedWrap: true } }
         )
         .setDepth(20);
         return this;
@@ -66,6 +82,7 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     deactivate() {
         this.graphics.clear();
         this.nameText.setVisible(false);
+        this.dialogText.setVisible(false);
         UIScene.popContent(this.scene);
 
         if (this.onDeactivated) {
@@ -88,7 +105,6 @@ export default class DialogBox extends Phaser.GameObjects.Container {
         const width = this.nameBoxWidth + 2*this.nameTextHorizontalPadding;
         return new Phaser.Geom.Rectangle(x, y, width, this.nameBoxHeight);
     }
-
 
     redraw() {
         this.graphics.clear()

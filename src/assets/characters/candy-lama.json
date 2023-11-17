@@ -9,10 +9,6 @@
         "We're the Supers! Ker-Splat! And we like chocolate! Boom! And yelling!",
         "Kapow! We could trade if you want!"
     ],
-    "returnDialog": [
-        "Crash! I meant to do that!"
-    ],
-    "farewellDialog": [
-        "Zap! Hey, I know karate! Wanna see? Oww!"
-    ]
+    "returnDialog": "Crash! I meant to do that!",
+    "farewellDialog": "Zap! Hey, I know karate! Wanna see? Oww!"
 }

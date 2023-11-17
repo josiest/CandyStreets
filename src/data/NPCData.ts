@@ -18,8 +18,8 @@ export interface NPCData { // note: 'CharacterData' is reserved by node
   buys?: Array<TraderPurchase>,
   sells?: Array<TraderSale>,
   introDialog: Array<string>,
-  returnDialog: Array<string>,
-  farewellDialog: Array<string>
+  returnDialog: string,
+  farewellDialog: string
 }
 
 // (presumably we'll place the character visually in-editor, so no need for placement data here?
@@ -44,10 +44,7 @@ let sampleCharacter : NPCData = {
     "Avast, landlubber!",
     "Come to trade, have ye?",
   ],
-  returnDialog: [
-    "Are ye ready for some spooooky savings???"
-  ],
-  farewellDialog: [ // things to say after closing trade window (if this character trades)
-    "If ye see Davey Jones, kick 'im in the shin fer me!",
-  ]
+  returnDialog: "Are ye ready for some spooooky savings???",
+  // things to say after closing trade window (if this character trades)
+  farewellDialog: "If ye see Davey Jones, kick 'im in the shin fer me!"
 }

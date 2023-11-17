@@ -8,10 +8,6 @@
         "Ahoy, me hearty! Welcome to Candycorn Cove!",
         "Me crew and myself were just about to enjoy our plunder... but we wouldn't say no to a trade."
     ],
-    "returnDialog": [
-        "Have you come for my buried treasure?! Taste me blade!"
-    ],
-    "farewellDialog": [
-        "Arr, good-bye then."
-    ]
+    "returnDialog": "Have you come for my buried treasure?! Taste me blade!",
+    "farewellDialog": "Arr, good-bye then."
 }

@@ -10,12 +10,6 @@
         "If you have any grape bat suckers, I suppose I could trade with you."
 
     ],
-    "returnDialog": [
-        "Oh, you're back then? Did you bring me anything... fun to eat?"
-    ],
-    "farewellDialog": [
-        "We didn't want you here anyways.",
-        "Don't mind it if we follow you, it doesn't mean we like you or anything."
-
-    ]
+    "returnDialog": "Oh, you're back then? Did you bring me anything... fun to eat?",
+    "farewellDialog": "We didn't want you here anyways."
 }
