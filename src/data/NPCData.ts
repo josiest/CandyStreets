@@ -1,24 +1,25 @@
 type NPCId = string;
 
-interface TraderPurchase {
+export interface TraderPurchase {
   item: ItemId,
   price: integer
 }
 
-interface TraderSale {
+export interface TraderSale {
   item: ItemId,
   price: integer
   // stock: integer // do we want limited stock?
 }
 
-interface NPCData { // note: 'CharacterData' is reserved by node
+export interface NPCData { // note: 'CharacterData' is reserved by node
   id: NPCId,
   name: string,
   image: AssetKey, // not sure we need this when using Tiled, but gives us some extra flexibility
   buys?: Array<TraderPurchase>,
   sells?: Array<TraderSale>,
-  greetings: Array<string>,
-  farewells: Array<string>
+  introDialog: Array<string>,
+  returnDialog: Array<string>,
+  farewellDialog: Array<string>
 }
 
 // (presumably we'll place the character visually in-editor, so no need for placement data here?
@@ -39,12 +40,14 @@ let sampleCharacter : NPCData = {
       //stock: 4 // do we want them to have a limited stock? we could set it here
     }
   ],
-  greetings: [ // things to say when interacting (quest-completion would come first, quest-assignment would come second?)
+  introDialog: [ // things to say when interacting (quest-completion would come first, quest-assignment would come second?)
     "Avast, landlubber!",
     "Come to trade, have ye?",
+  ],
+  returnDialog: [
     "Are ye ready for some spooooky savings???"
   ],
-  farewells: [ // things to say after closing trade window (if this character trades)
+  farewellDialog: [ // things to say after closing trade window (if this character trades)
     "If ye see Davey Jones, kick 'im in the shin fer me!",
   ]
 }

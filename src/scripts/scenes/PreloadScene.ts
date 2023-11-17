@@ -58,10 +58,21 @@ const placedImages = [
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
-    super({ key: 'PreloadScene' })
+    super({ key: 'preload-scene' })
   }
 
   preload() {
+    this.loadCharacters();
+    this.load.image("tiles", "assets/tileset_extruded.png");
+    this.load.tilemapTiledJSON("tilemap", "assets/test-map-embedded.tmj")
+
+    const firstgid = 1
+    placedImages.forEach((entry) => {
+      this.load.image(`img-tile-${entry.id + firstImageGID}`, `assets/${entry.image}`)
+    })
+  }
+
+  loadCharacters() {
     this.load.image('candy-cat',
                     'assets/temp/candy-cat.png');
 
@@ -71,13 +82,15 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('candy-pirate',
                     'assets/temp/candy-pirate.png');
 
-    this.load.image("tiles", "assets/tileset_extruded.png");
-    this.load.tilemapTiledJSON("tilemap", "assets/test-map-embedded.tmj")
 
-    const firstgid = 1
-    placedImages.forEach((entry) => {
-      this.load.image(`img-tile-${entry.id + firstImageGID}`, `assets/${entry.image}`)
-    })
+    this.load.json('data-candy-pirate',
+                   'assets/characters/candy-pirate.json');
+
+    this.load.json('data-candy-cat',
+                   'assets/characters/candy-cat.json');
+
+    this.load.json('data-candy-lama',
+                   'assets/characters/candy-lama.json');
   }
 
   create() {

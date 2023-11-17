@@ -1,0 +1,21 @@
+{
+    "id": "candy-cat",
+    "name": "Cleo-Catra",
+    "image": "img-candy-cat",
+    "buys": [{ "item": "bat-sucker", "price": 4 }],
+    "sells": [{ "item": "candy-corn", "price": 6 }],
+    "introDialog": [
+        "Me-ow! We're not ready to go in for the night - so much prey to feast upon!",
+        "Tigger over there says he likes the raspberry ones the best, but he's me-owt of his mind.",
+        "If you have any grape bat suckers, I suppose I could trade with you."
+
+    ],
+    "returnDialog": [
+        "Oh, you're back then? Did you bring me anything... fun to eat?"
+    ],
+    "farewellDialog": [
+        "We didn't want you here anyways.",
+        "Don't mind it if we follow you, it doesn't mean we like you or anything."
+
+    ]
+}

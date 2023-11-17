@@ -1,4 +1,5 @@
 import UIScene from '../scenes/UIScene'
+import { NPCData } from '../../data/NPCData'
 
 type DialogEvent = () => void;
 
@@ -43,15 +44,16 @@ export default class DialogBox extends Phaser.GameObjects.Container {
         this.redraw();
     }
 
-    setCharacter(character: string) {
+    setCharacter(character: NPCData) {
         this.nameText = this.scene.add.text(
             this.nameRect.x + this.nameTextHorizontalPadding,
             this.nameRect.y + this.nameTextVerticalPadding,
-            character,
+            character.name,
             { fontSize: `${this.nameTextSize}px`,
               color: `#${this.nameTextColor.toString(16)}` }
         )
         .setDepth(20);
+        return this;
     }
 
     isActive() {
@@ -63,6 +65,7 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     }
     deactivate() {
         this.graphics.clear();
+        this.nameText.setVisible(false);
         UIScene.popContent(this.scene);
 
         if (this.onDeactivated) {
