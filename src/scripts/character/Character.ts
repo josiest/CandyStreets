@@ -23,8 +23,10 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
                 this.displayHeight + Character.interactionPadding)
             .dialog("to talk");
 
-        this.interaction.onPlayerInteracted = () => {
-            UIScene.pushContent(this.scene, DialogBox);
-        };
+        this.interaction.onPlayerInteracted = this.onTalkToCharacter;
+    }
+
+    onTalkToCharacter() {
+        UIScene.pushContent(this.scene, DialogBox);
     }
 }

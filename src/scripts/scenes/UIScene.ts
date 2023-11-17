@@ -12,11 +12,11 @@ export default class UIScene extends Phaser.Scene {
     }
 
     static pushContent<WidgetType extends Phaser.GameObjects.Container>(
-            scene: Phaser.Scene, widgetConstructor) {
+            scene: Phaser.Scene, widgetConstructor): WidgetType {
 
         let ui = <UIScene> scene.scene.get('ui-scene');
         if (!ui) {
-            return undefined;
+            return new widgetConstructor(scene);
         }
         if (ui.stack.length > 0) {
             let current = ui.stack.at(ui.stack.length-1)!;
