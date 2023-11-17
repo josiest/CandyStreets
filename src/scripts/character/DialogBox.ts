@@ -3,10 +3,20 @@ import UIScene from '../scenes/UIScene'
 type DialogEvent = () => void;
 
 export default class DialogBox extends Phaser.GameObjects.Container {
-    padding: number = 100;
-    backgroundColor: number = 0x1a1a1a;
-    rectRadius: number = 20;
+    boxHorizontalPadding: number = 100;
+    boxTopPadding: number = 20;
+    boxBottomPadding: number = 50;
+    boxRectRadius: number = 20;
     boxHeight: number = 200;
+    boxBackgroundColor: number = 0x1a1a1a;
+    boxTextColor: number = 0xfffffff;
+
+    nameLeftPadding: number = 50;
+    nameRectRadius: number = 20;
+    nameBoxHeight: number = 100;
+    nameBackgroundColor: number = 0xff80df;
+    nameTextColor: number = 0x1a1a1a;
+    nameTextHorizontalPadding: number = 10;
 
     graphics: Phaser.GameObjects.Graphics;
     rect: Phaser.Geom.Rectangle;
@@ -17,10 +27,11 @@ export default class DialogBox extends Phaser.GameObjects.Container {
         this.setSize(scene.scale.width, scene.scale.height);
         this.graphics = this.scene.add.graphics().setDepth(1);
 
-        const width = this.scene.scale.width - 2*this.padding;
-        const y = this.scene.scale.height - this.padding - this.boxHeight;
+        const width = this.scene.scale.width - 2*this.boxHorizontalPadding;
+        const y = this.scene.scale.height - this.boxBottomPadding
+                                          - this.boxHeight;
 
-        this.rect = new Phaser.Geom.Rectangle(this.padding, y,
+        this.rect = new Phaser.Geom.Rectangle(this.boxHorizontalPadding, y,
                                               width, this.boxHeight);
 
         if (this.scene.input.keyboard) {
@@ -49,7 +60,7 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     }
     redraw() {
         this.graphics.clear()
-            .fillStyle(this.backgroundColor, 1)
+            .fillStyle(this.boxBackgroundColor, 1)
             .fillRoundedRect(this.rect.x, this.rect.y,
                              this.rect.width, this.rect.height);
         return this;
