@@ -6,7 +6,7 @@ type DialogEvent = () => void;
 export default class DialogBox extends Phaser.GameObjects.Container {
     boxHorizontalPadding: number = 100;
     boxTopPadding: number = 20;
-    boxBottomPadding: number = 50;
+    boxBottomPadding: number = 100;
     boxRectRadius: number = 20;
     boxHeight: number = 200;
     boxBackgroundColor: number = 0x1a1a1a;
@@ -22,15 +22,23 @@ export default class DialogBox extends Phaser.GameObjects.Container {
     nameBoxWidth: number = 400;
     nameBackgroundColor: number = 0xff4dd2;
 
+    actionTextPadding: number = 50;
+    actionTextColor: number = 0xffffff;
+
     nameTextColor: number = 0x1a1a1a;
     nameTextHorizontalPadding: number = 20;
     nameTextVerticalPadding: number = 11;
 
     graphics: Phaser.GameObjects.Graphics;
+
     boxRect: Phaser.Geom.Rectangle;
     dialogText: Phaser.GameObjects.Text;
+
     nameRect: Phaser.Geom.Rectangle;
     nameText: Phaser.GameObjects.Text;
+
+    cancelText: Phaser.GameObjects.Text;
+    continueText: Phaser.GameObjects.Text;
 
     onDeactivated: DialogEvent;
     constructor(scene: Phaser.Scene) {
@@ -69,6 +77,28 @@ export default class DialogBox extends Phaser.GameObjects.Container {
               wordWrap: { width: dialogTextWidth, useAdvancedWrap: true } }
         )
         .setDepth(20);
+
+        const actionTextY = this.scene.scale.height - this.actionTextPadding
+                          - this.textSize;
+        this.cancelText = this.scene.add.text(
+            this.actionTextPadding, actionTextY,
+            'esc to cancel',
+            { fontSize: `${this.textSize}px`,
+              color: `#${this.actionTextColor.toString(16)}` }
+        )
+        .setDepth(20);
+
+        this.continueText = this.scene.add.text(
+            this.scene.scale.width - this.actionTextPadding, actionTextY,
+            'e to continue',
+            { fontSize: `${this.textSize}px`,
+              color: `#${this.actionTextColor.toString(16)}` }
+        )
+        .setDepth(20);
+
+        const continueX = this.continueText.x
+                        - this.continueText.getBounds().width;
+        this.continueText.setPosition(continueX, this.continueText.y);
         return this;
     }
 
@@ -83,7 +113,9 @@ export default class DialogBox extends Phaser.GameObjects.Container {
         this.graphics.clear();
         this.nameText.setVisible(false);
         this.dialogText.setVisible(false);
-        UIScene.popContent(this.scene);
+        this.cancelText.setVisible(false);
+        this.continueText.setVisible(false);
+        UIScene.popContent(this.scene, this);
 
         if (this.onDeactivated) {
             this.onDeactivated();

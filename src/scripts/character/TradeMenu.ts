@@ -40,7 +40,7 @@ export default class TradeMenu extends Phaser.GameObjects.Container {
     }
     deactivate() {
         this.graphics.clear();
-        UIScene.popContent(this.scene);
+        UIScene.popContent(this.scene, this);
 
         if (this.onDeactivated) {
             this.onDeactivated();

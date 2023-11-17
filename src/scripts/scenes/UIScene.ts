@@ -27,7 +27,8 @@ export default class UIScene extends Phaser.Scene {
         widget.setVisible(true);
         return widget;
     }
-    static popContent(scene: Phaser.Scene) {
+    static popContent(scene: Phaser.Scene,
+                      content: Phaser.GameObjects.Container) {
         let ui = <UIScene> scene.scene.get('ui-scene');
         if (!ui) {
             return undefined;
@@ -35,11 +36,11 @@ export default class UIScene extends Phaser.Scene {
         if (ui.stack.length == 0) {
             return undefined;
         }
-        let last = ui.stack.pop();
+        ui.stack = ui.stack.filter(widget => widget !== content);
         if (ui.stack.length > 0) {
             let current = ui.stack.at(ui.stack.length-1)!;
             current.setVisible(true);
         }
-        return last;
+        return content;
     }
 }
