@@ -1,7 +1,10 @@
 import InteractionComponent from '../interaction/InteractionComponent'
-import TradeMenu from './TradeMenu'
 import Player from '../objects/Player'
+
 import UIScene from '../scenes/UIScene'
+import TradeMenu from './TradeMenu'
+import DialogBox from './DialogBox'
+
 
 export default class Character extends Phaser.Physics.Arcade.Sprite {
     static interactionPadding: number = 100;
@@ -21,7 +24,7 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
             .dialog("to talk");
 
         this.interaction.onPlayerInteracted = () => {
-            UIScene.pushContent(this.scene, TradeMenu);
+            UIScene.pushContent(this.scene, DialogBox);
         };
     }
 }
