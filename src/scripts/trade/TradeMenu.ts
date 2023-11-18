@@ -15,6 +15,8 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     rectRadius: number = 20;
 
     textSize: number = 30;
+    textColor: number = 0xffffff;
+    actionTextPadding: number = 30;
 
     handleCancel: MenuEvent;
     handleConfirm: MenuEvent;
@@ -24,6 +26,7 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     rect: Phaser.Geom.Rectangle;
 
     graphics: Phaser.GameObjects.Graphics;
+    cancelText: Phaser.GameObjects.Text;
     itemsBought: TradeList<TraderPurchase>;
     itemsSold: Array<Phaser.GameObjects.Text>;
 
@@ -33,6 +36,14 @@ export default class TradeMenu extends Phaser.GameObjects.Container
 
         this.setSize(scene.scale.width, scene.scale.height);
         this.graphics = this.scene.add.graphics().setDepth(1);
+
+        this.cancelText = this.scene.add.text(
+            this.actionTextPadding,
+            scene.scale.height - this.actionTextPadding
+                               - this.textSize,
+            'esc to cancel',
+            { color: `#${this.textColor.toString(16)}`,
+              fontSize: `${this.textSize}px` });
 
         const width = this.scene.scale.width - 2*this.padding;
         const height = this.scene.scale.height - 2*this.padding;
@@ -99,6 +110,7 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     deactivate() {
         this.isActive = false;
         this.graphics.clear();
+        this.cancelText.destroy();
         this.itemsBought.removeAll(true);
         this.resetItemsSold();
 
