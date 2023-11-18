@@ -13,9 +13,14 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     graphics: Phaser.GameObjects.Graphics;
     rect: Phaser.Geom.Rectangle;
 
+    handleCancel: MenuEvent;
+    handleConfirm: MenuEvent;
     onDeactivated: MenuEvent;
+
     constructor(scene: Phaser.Scene) {
         super(scene);
+        this.type = 'TradeMenu';
+
         this.setSize(scene.scale.width, scene.scale.height);
         this.graphics = this.scene.add.graphics().setDepth(1);
 
@@ -25,13 +30,29 @@ export default class TradeMenu extends Phaser.GameObjects.Container
         this.rect = new Phaser.Geom.Rectangle(
             this.padding, this.padding, width, height);
 
+        this.redraw();
+    }
+    onCancel(callback: MenuEvent) {
+        this.handleCancel = callback;
         if (this.scene.input.keyboard) {
             this.scene.input.keyboard.on('keyup-ESC', event => {
-                this.deactivate();
+                if (this.isActive) {
+                    this.handleCancel();
+                }
             });
         }
-
-        this.redraw();
+        return this;
+    }
+    onConfirm(callback: MenuEvent) {
+        this.handleConfirm = callback;
+        if (this.scene.input.keyboard) {
+            this.scene.input.keyboard.on('keyup-ENTER', event => {
+                if (this.isActive) {
+                    this.handleConfirm();
+                }
+            });
+        }
+        return this;
     }
 
     activate() {
@@ -42,13 +63,15 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     deactivate() {
         this.isActive = false;
         this.graphics.clear();
-        UIScene.popContent(this.scene, this);
 
         if (this.onDeactivated) {
             this.onDeactivated();
         }
     }
     redraw() {
+        if (!this.isActive) {
+            return;
+        }
         this.graphics.clear()
             .fillStyle(this.backgroundColor, 1)
             .fillRoundedRect(this.rect.x, this.rect.y,

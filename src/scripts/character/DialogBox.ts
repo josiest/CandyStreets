@@ -49,6 +49,8 @@ export default class DialogBox extends Phaser.GameObjects.Container
 
     constructor(scene: Phaser.Scene) {
         super(scene);
+        this.type = 'DialogBox';
+
         this.setSize(scene.scale.width, scene.scale.height);
         this.boxRect = this.computeBoxRect();
         this.nameRect = this.computeNameRect();
@@ -81,7 +83,9 @@ export default class DialogBox extends Phaser.GameObjects.Container
         this.handleContinue = callback;
         if (this.scene.input.keyboard) {
             this.scene.input.keyboard.on('keyup-E', event => {
-                this.handleContinue();
+                if (this.isActive) {
+                    this.handleContinue();
+                }
             });
         }
         return this;

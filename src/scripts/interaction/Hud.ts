@@ -8,6 +8,7 @@ export default class HUD extends Phaser.GameObjects.Container
 
     constructor(scene: Phaser.Scene) {
         super(scene);
+        this.type = 'HUD';
         this.promptText = scene.add.text((this.scene.scale.width/2) - 100,
                                          this.scene.scale.height - 100,
                                         '', { color: '#0', fontSize: 30 })

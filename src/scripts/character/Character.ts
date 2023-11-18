@@ -29,20 +29,25 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
                 this.displayHeight + Character.interactionPadding)
             .dialog("to talk");
 
-        this.interaction.onPlayerInteracted = () => this.onTalkToPlayer();
+        this.interaction.onPlayerInteracted = () => {
+            this.handleTalkToPlayer(true);
+        }
     }
 
-    onTalkToPlayer() {
+    handleTalkToPlayer(isReturn: boolean) {
         let dialogBox = <DialogBox> UIScene.pushContent(
             this.scene, DialogBox);
 
+        const dialogText = isReturn ? this.npcData.returnDialog
+                                    : this.npcData.farewellDialog;
+
         dialogBox.setNameText(this.npcData.name)
-                 .setDialogText(this.npcData.returnDialog)
-                 .onCancel(() => this.handleCancel(dialogBox))
-                 .onContinue(() => this.handleContinue(dialogBox));
+                 .setDialogText(dialogText)
+                 .onCancel(() => this.handleDialogCancel(dialogBox))
+                 .onContinue(() => this.handleDialogContinue(dialogBox));
     }
 
-    handleCancel(dialogBox: DialogBox) {
+    handleDialogCancel(dialogBox: DialogBox) {
         if (dialogBox.dialogText.text == this.npcData.farewellDialog) {
             UIScene.popContent(this.scene, dialogBox);
         }
@@ -50,9 +55,18 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
             dialogBox.dialogText.setText(this.npcData.farewellDialog);
         }
     }
-    handleContinue(dialogBox: DialogBox) {
+    handleDialogContinue(dialogBox: DialogBox) {
+        UIScene.popContent(this.scene, dialogBox);
         if (dialogBox.dialogText.text == this.npcData.farewellDialog) {
-            UIScene.popContent(this.scene, dialogBox);
+            return;
         }
+        let tradeMenu = <TradeMenu> UIScene.pushContent(
+            this.scene, TradeMenu
+        );
+        tradeMenu.onCancel(() => this.handleTradeCancel(tradeMenu));
+    }
+    handleTradeCancel(tradeMenu: TradeMenu) {
+        UIScene.popContent(this.scene, tradeMenu);
+        this.handleTalkToPlayer(false);
     }
 }
