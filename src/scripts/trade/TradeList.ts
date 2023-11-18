@@ -1,4 +1,6 @@
 import { TraderPurchase, TraderSale } from '../../data/NPCData'
+import TradeItem from './TradeItem'
+
 type TraderExchange = TraderPurchase | TraderSale;
 
 export default class TradeList<ExchangeType extends TraderExchange>
@@ -12,9 +14,9 @@ export default class TradeList<ExchangeType extends TraderExchange>
 
     constructor(scene: Phaser.Scene, rect: Phaser.Geom.Rectangle) {
         super(scene, rect.x, rect.y);
+        this.type = `TradeList`;
         this.scene.add.existing(this);
 
-        this.type = `TradeList`;
         this.rect = rect;
         this.setDepth(10);
     }
@@ -24,15 +26,11 @@ export default class TradeList<ExchangeType extends TraderExchange>
         const itemX = 0;
         let itemY = 0;
         items.forEach(exchange => {
-            let text = this.scene.add.text(
-                itemX, itemY, `${exchange.item}: ${exchange.price}`,
-                { color: `#${this.textColor.toString(16)}`,
-                  fontSize: `${this.textSize}px` });
+            this.add(TradeItem.new(this.scene, itemX, itemY)
+                              .setItem(exchange.item)
+                              .setPrice(exchange.price));
 
-            text.setDepth(20);
             itemY += this.textSize + this.innerPadding;
-
-            this.add(text);
         });
     }
 }
