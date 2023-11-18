@@ -99,7 +99,7 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     deactivate() {
         this.isActive = false;
         this.graphics.clear();
-        this.itemsBought.clearChildren();
+        this.itemsBought.removeAll(true);
         this.resetItemsSold();
 
         if (this.onDeactivated) {

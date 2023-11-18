@@ -9,19 +9,20 @@ export default class TradeList<ExchangeType extends TraderExchange>
     textSize: number = 30;
 
     rect: Phaser.Geom.Rectangle;
-    children: Array<Phaser.GameObjects.Text>;
 
     constructor(scene: Phaser.Scene, rect: Phaser.Geom.Rectangle) {
-        super(scene);
+        super(scene, rect.x, rect.y);
+        this.scene.add.existing(this);
+
         this.type = `TradeList`;
         this.rect = rect;
-        this.children = new Array<Phaser.GameObjects.Text>();
+        this.setDepth(10);
     }
     setItems(items: Array<ExchangeType>) {
-        this.clearChildren();
+        this.removeAll(true);
 
-        const itemX = this.rect.x;
-        let itemY = this.rect.y;
+        const itemX = 0;
+        let itemY = 0;
         items.forEach(exchange => {
             let text = this.scene.add.text(
                 itemX, itemY, `${exchange.item}: ${exchange.price}`,
@@ -31,11 +32,7 @@ export default class TradeList<ExchangeType extends TraderExchange>
             text.setDepth(20);
             itemY += this.textSize + this.innerPadding;
 
-            this.children.push(text);
+            this.add(text);
         });
-    }
-    clearChildren() {
-        this.children.forEach(item => item.destroy());
-        this.children = new Array<Phaser.GameObjects.Text>();
     }
 }
