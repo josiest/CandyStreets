@@ -1,13 +1,17 @@
-import { ItemId } from '../../data/ItemData'
+import { ItemId, ItemData } from '../../data/ItemData'
 
 export default class TradeItem extends Phaser.GameObjects.Container {
 
     textColor: number = 0xffffff;
     textSize: number = 30;
 
-    itemData: ItemId; // TODO: change to actual item data
+    iconSize: number = 64;
+    nameLeftPadding: number = 20;
+
+    itemData: ItemData; // TODO: change to actual item data
     price: number = 1;
 
+    icon: Phaser.GameObjects.Image;
     text: Phaser.GameObjects.Text;
 
     static new(scene: Phaser.Scene, x: number, y: number) {
@@ -28,13 +32,14 @@ export default class TradeItem extends Phaser.GameObjects.Container {
         this.add(this.text);
     }
     setItem(itemId: ItemId) {
-        this.itemData = itemId;
-        this.text.setText(`${this.itemData}: ${this.price}`);
+        const preloadScene = this.scene.scene.get('preload-scene');
+        this.itemData = preloadScene.cache.json.get(`data-${itemId}`);
+        this.text.setText(`${this.itemData.name}: ${this.price}`);
         return this;
     }
     setPrice(price: number) {
         this.price = price;
-        this.text.setText(`${this.itemData}: ${this.price}`);
+        this.text.setText(`${this.itemData.name}: ${this.price}`);
         return this;
     }
 }

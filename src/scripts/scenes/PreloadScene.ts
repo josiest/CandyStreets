@@ -63,6 +63,8 @@ export default class PreloadScene extends Phaser.Scene {
 
   preload() {
     this.loadCharacters();
+    this.loadItems();
+
     this.load.image("tiles", "assets/tileset_extruded.png");
     this.load.tilemapTiledJSON("tilemap", "assets/test-map-embedded.tmj")
 
@@ -93,6 +95,28 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.json('data-candy-lama',
                    'assets/characters/candy-lama.json');
+  }
+
+  loadItems() {
+      this.load.image('img-bat-sucker',
+                      'assets/candy/textures/bat-sucker.png');
+      this.load.json('data-bat-sucker',
+                     'assets/candy/bat-sucker.json');
+
+      this.load.image('img-candy-apple',
+                      'assets/candy/textures/candy-apple.png');
+      this.load.json('data-candy-apple',
+                     'assets/candy/candy-apple.json');
+
+      this.load.image('img-candy-corn',
+                      'assets/candy/textures/candy-corn.png');
+      this.load.json('data-candy-corn',
+                     'assets/candy/candy-corn.json');
+
+      this.load.image('img-chocolate-bar',
+                      'assets/candy/textures/chocolate-bar.png');
+      this.load.json('data-chocolate-bar',
+                     'assets/candy/chocolate-bar.json');
   }
 
   create() {

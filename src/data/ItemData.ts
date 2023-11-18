@@ -3,12 +3,12 @@ export type AssetKey = string;
 
 export interface ItemData {
   id: ItemId,
-  image: AssetKey,
-  description: string
+  name: string,
+  description?: string
 }
 
 let itemSample : ItemData = {
-  id: "batSucker",
-  image: "batSucker", // should match an asset key that we've preloaded
+  id: "bat-sucker",
+  name: "Bat Sucker",
   description: "Hard candy on a stick. Blackberry flavored. Yum!",
 }
