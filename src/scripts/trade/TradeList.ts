@@ -6,6 +6,7 @@ type TraderExchange = TraderPurchase | TraderSale;
 export default class TradeList<ExchangeType extends TraderExchange>
                extends Phaser.GameObjects.Container {
 
+    iconSize: number = 64;
     innerPadding: number = 20;
     textColor: number = 0xffffff;
     textSize: number = 30;
@@ -26,11 +27,10 @@ export default class TradeList<ExchangeType extends TraderExchange>
         const itemX = 0;
         let itemY = 0;
         items.forEach(exchange => {
-            this.add(TradeItem.new(this.scene, itemX, itemY)
-                              .setItem(exchange.item)
+            this.add(TradeItem.new(this.scene, exchange.item, itemX, itemY)
                               .setPrice(exchange.price));
 
-            itemY += this.textSize + this.innerPadding;
+            itemY += this.iconSize + this.innerPadding;
         });
     }
 }
