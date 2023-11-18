@@ -1,3 +1,4 @@
+import { ItemId, AssetKey } from './ItemData'
 export type NPCId = string;
 
 export interface TraderPurchase {

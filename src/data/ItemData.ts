@@ -1,7 +1,7 @@
-type ItemId = string;
-type AssetKey = string;
+export type ItemId = string;
+export type AssetKey = string;
 
-interface ItemData {
+export interface ItemData {
   id: ItemId,
   image: AssetKey,
   description: string

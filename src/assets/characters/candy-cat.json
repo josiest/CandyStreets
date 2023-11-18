@@ -2,7 +2,12 @@
     "id": "candy-cat",
     "name": "Cleo-Catra",
     "image": "img-candy-cat",
-    "buys": [{ "item": "bat-sucker", "price": 4 }],
+    "buys": [
+        { "item": "bat-sucker", "price": 4 },
+        { "item": "candy-corn", "price": 2 },
+        { "item": "candy-apple", "price": 7 },
+        { "item": "chocolate-bar", "price": 7 }
+    ],
     "sells": [{ "item": "candy-corn", "price": 6 }],
     "introDialog": [
         "Me-ow! We're not ready to go in for the night - so much prey to feast upon!",

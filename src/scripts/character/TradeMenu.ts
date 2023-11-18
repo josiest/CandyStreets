@@ -1,21 +1,31 @@
 import IActivatableWidget from '../ui/ActivatableWidget'
 import UIScene from '../scenes/UIScene'
 
+import { TraderPurchase, TraderSale } from '../../data/NPCData'
+import TradeList from '../trade/TradeList'
+
 type MenuEvent = () => void;
 
 export default class TradeMenu extends Phaser.GameObjects.Container
                                implements IActivatableWidget {
     padding: number = 100;
+    innerPadding: number = 100;
+
     backgroundColor: number = 0x1a1a1a;
     rectRadius: number = 20;
 
-    isActive: boolean;
-    graphics: Phaser.GameObjects.Graphics;
-    rect: Phaser.Geom.Rectangle;
+    textSize: number = 30;
 
     handleCancel: MenuEvent;
     handleConfirm: MenuEvent;
     onDeactivated: MenuEvent;
+
+    isActive: boolean;
+    rect: Phaser.Geom.Rectangle;
+
+    graphics: Phaser.GameObjects.Graphics;
+    itemsBought: TradeList<TraderPurchase>;
+    itemsSold: Array<Phaser.GameObjects.Text>;
 
     constructor(scene: Phaser.Scene) {
         super(scene);
@@ -28,9 +38,31 @@ export default class TradeMenu extends Phaser.GameObjects.Container
         const height = this.scene.scale.height - 2*this.padding;
 
         this.rect = new Phaser.Geom.Rectangle(
-            this.padding, this.padding, width, height);
+            this.padding, this.padding, width, height
+        );
+
+        const buysRect = new Phaser.Geom.Rectangle(
+            this.rect.x + this.innerPadding,
+            this.rect.y + this.innerPadding, width/2, height
+        );
+        this.itemsBought = new TradeList<TraderPurchase>(
+            this.scene, buysRect
+        );
+
+        const sellsRect = new Phaser.Geom.Rectangle(
+            buysRect.x + buysRect.width, buysRect.y,
+            width/2, height
+        );
+        this.itemsSold = new Array<Phaser.GameObjects.Text>();
 
         this.redraw();
+    }
+    setItemsBought(items: Array<TraderPurchase>) {
+        this.itemsBought.setItems(items);
+        return this;
+    }
+    setItemsSold(itemsSold: Array<TraderPurchase>) {
+        return this;
     }
     onCancel(callback: MenuEvent) {
         this.handleCancel = callback;
@@ -55,6 +87,10 @@ export default class TradeMenu extends Phaser.GameObjects.Container
         return this;
     }
 
+    resetItemsSold() {
+        this.itemsSold.forEach(item => item.destroy());
+        this.itemsSold = new Array<Phaser.GameObjects.Text>;
+    }
     activate() {
         this.isActive = true;
         this.graphics.setVisible(true)
@@ -63,6 +99,8 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     deactivate() {
         this.isActive = false;
         this.graphics.clear();
+        this.itemsBought.clearChildren();
+        this.resetItemsSold();
 
         if (this.onDeactivated) {
             this.onDeactivated();

@@ -1,13 +1,14 @@
+import { ItemId } from './ItemData'
 import { NPCId } from './NPCData'
 
-type QuestId = string;
+export type QuestId = string;
 
-interface ItemTransfer {
+export interface ItemTransfer {
   item: ItemId,
   count: integer
 }
 
-interface QuestData {
+export interface QuestData {
   id: QuestId,
   name: string,
   description: string,

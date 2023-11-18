@@ -63,7 +63,8 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
         let tradeMenu = <TradeMenu> UIScene.pushContent(
             this.scene, TradeMenu
         );
-        tradeMenu.onCancel(() => this.handleTradeCancel(tradeMenu));
+        tradeMenu.setItemsBought(this.npcData.buys!)
+                 .onCancel(() => this.handleTradeCancel(tradeMenu));
     }
     handleTradeCancel(tradeMenu: TradeMenu) {
         UIScene.popContent(this.scene, tradeMenu);
