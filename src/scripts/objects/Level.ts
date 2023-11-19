@@ -1,3 +1,4 @@
+import * as Phaser from 'phaser';
 import { Tilemaps } from "phaser";
 import CharacterSystem from "../character/CharacterSystem";
 import Player from "./Player";

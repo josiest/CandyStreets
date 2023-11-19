@@ -1,3 +1,4 @@
+import * as Phaser from 'phaser'
 import Player from '../objects/Player'
 type PlayerInteractionEvent = (player: Player) => void;
 type InteractionEvent = () => void;

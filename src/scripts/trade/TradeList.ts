@@ -1,4 +1,5 @@
-import { TraderPurchase, TraderSale } from '../../data/NPCData'
+import * as Phaser from 'phaser'
+import { TraderPurchase, TraderSale } from '../data/NPCData'
 import TradeItem from './TradeItem'
 
 type TraderExchange = TraderPurchase | TraderSale;

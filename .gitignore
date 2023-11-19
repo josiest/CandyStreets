@@ -186,6 +186,11 @@ plugins/spine*/spine-runtimes/
 # Project
 #
 
+*.zip
+
+# ignore compiled js files (we're using typescript)
+src/**/*.js
+
 # Ignore temp assets
 src/assets/temp
 

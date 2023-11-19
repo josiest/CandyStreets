@@ -1,4 +1,5 @@
-import { ItemId, ItemData } from '../../data/ItemData'
+import * as Phaser from 'phaser';
+import { ItemId, ItemData } from '../data/ItemData';
 
 export default class TradeItem extends Phaser.GameObjects.Container {
 

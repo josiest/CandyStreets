@@ -1,3 +1,4 @@
+import * as Phaser from 'phaser'
 import InteractionComponent from '../interaction/InteractionComponent'
 import Player from '../objects/Player'
 
@@ -5,7 +6,7 @@ import UIScene from '../scenes/UIScene'
 import TradeMenu from '../trade/TradeMenu'
 import DialogBox from './DialogBox'
 
-import { NPCData } from '../../data/NPCData'
+import { NPCData } from '../data/NPCData'
 
 export default class Character extends Phaser.Physics.Arcade.Sprite {
     static interactionPadding: number = 100;

@@ -1,3 +1,4 @@
+import * as Phaser from 'phaser'
 import Player from '../objects/Player'
 import CharacterSystem from '../character/CharacterSystem'
 import Level from '../objects/Level'

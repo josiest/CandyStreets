@@ -1,7 +1,8 @@
+import * as Phaser from 'phaser'
 import IActivatableWidget from '../ui/ActivatableWidget'
 import UIScene from '../scenes/UIScene'
 
-import { TraderPurchase, TraderSale } from '../../data/NPCData'
+import { TraderPurchase, TraderSale } from '../data/NPCData'
 import TradeList from '../trade/TradeList'
 
 type MenuEvent = () => void;

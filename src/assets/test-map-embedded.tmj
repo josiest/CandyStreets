@@ -614,7 +614,7 @@
         {
          "columns":8,
          "firstgid":7,
-         "image":"..\/..\/tiled\/temp-tiles_extruded.png",
+         "image":"img\/temp-tiles_extruded.png",
          "imageheight":1032,
          "imagewidth":2064,
          "margin":1,

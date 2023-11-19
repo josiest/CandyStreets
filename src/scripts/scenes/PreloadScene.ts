@@ -1,3 +1,5 @@
+import * as Phaser from 'phaser'
+
 // Heads up: preloading the Object Layer images used by Tiled is kinda messy! (below)
 //
 // Each image needs to be preloaded and given a key for later lookup,

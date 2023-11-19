@@ -1,6 +1,8 @@
+import * as Phaser from 'phaser'
+
 import IActivatableWidget from '../ui/ActivatableWidget'
 import UIScene from '../scenes/UIScene'
-import { NPCData } from '../../data/NPCData'
+import { NPCData } from '../data/NPCData'
 
 type DialogEvent = () => void;
 

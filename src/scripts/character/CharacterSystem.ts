@@ -1,3 +1,4 @@
+import * as Phaser from 'phaser'
 import Player from '../objects/Player'
 import Character from '../character/Character'
 import InteractionComponent from '../interaction/InteractionComponent'

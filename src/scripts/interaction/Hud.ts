@@ -1,3 +1,4 @@
+import * as Phaser from 'phaser'
 import IActivatableWidget from '../ui/ActivatableWidget'
 
 export default class HUD extends Phaser.GameObjects.Container

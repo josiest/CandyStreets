@@ -1,4 +1,4 @@
-import 'phaser'
+import * as Phaser from 'phaser'
 import MainScene from './scenes/MainScene'
 import PreloadScene from './scenes/PreloadScene'
 import UIScene from './scenes/UIScene'
@@ -25,6 +25,7 @@ const config = {
   }
 }
 
-window.addEventListener('load', () => {
-  const game = new Phaser.Game(config)
-})
+window.onload = () => {
+    console.log("starting game!");
+    const game = new Phaser.Game(config);
+}

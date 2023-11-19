@@ -1,3 +1,5 @@
+import * as Phaser from 'phaser';
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     minSpeed: number = 80.0;

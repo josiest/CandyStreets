@@ -1,3 +1,4 @@
+import * as Phaser from 'phaser'
 import IActivatableWidget from '../ui/ActivatableWidget'
 import HUD from '../interaction/Hud'
 
