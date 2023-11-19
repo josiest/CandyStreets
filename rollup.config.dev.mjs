@@ -8,7 +8,7 @@ export default {
 
     //  Our game entry point (edit as required)
     input: [
-        './src/scripts/game.ts'
+        './scripts/game.ts'
     ],
 
     //  Where the build file is to be generated.

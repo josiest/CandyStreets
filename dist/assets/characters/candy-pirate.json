@@ -1,0 +1,18 @@
+{
+    "id": "candy-pirate",
+    "name": "Pink Beard",
+    "image": "img-candy-pirate",
+    "buys": [
+        { "item": "bat-sucker", "price": 4 },
+        { "item": "candy-corn", "price": 2 },
+        { "item": "candy-apple", "price": 7 },
+        { "item": "chocolate-bar", "price": 7 }
+    ],
+    "sells": [{ "item": "candy-corn", "price": 6 }],
+    "introDialog": [
+        "Ahoy, me hearty! Welcome to Candycorn Cove!",
+        "Me crew and myself were just about to enjoy our plunder... but we wouldn't say no to a trade."
+    ],
+    "returnDialog": "Have you come for my buried treasure?! Taste me blade!",
+    "farewellDialog": "Arr, good-bye then."
+}

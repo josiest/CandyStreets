@@ -2,7 +2,7 @@
   "name": "CandyNights",
   "description": "A game a bout trading candy on Halloween",
   "version": "0.1.0",
-  "main": "src/scripts/game.ts",
+  "main": "scripts/game.ts",
   "scripts": {
     "dev": "rollup --config rollup.config.dev.mjs",
     "build": "rollup --config rollup.config.dist.mjs",
