@@ -3,6 +3,10 @@ import Player from '../objects/Player'
 import CharacterSystem from '../character/CharacterSystem'
 import Level from '../objects/Level'
 
+import UIScene from './UIScene'
+import DialogBox from '../character/DialogBox'
+import { NPCData } from '../data/NPCData'
+
 export default class MainScene extends Phaser.Scene {
     level:Level;
     player: Player;
@@ -32,8 +36,17 @@ export default class MainScene extends Phaser.Scene {
         camera.setBounds(0, 0, worldWidth, worldHeight);
         camera.zoom = 0.62;
 
-        this.jumpPlayerToPosition(level.playerStartPosition.x, level.playerStartPosition.y);
+        this.jumpPlayerToPosition(level.playerStartPosition.x,
+                                  level.playerStartPosition.y);
         camera.startFollow(this.player, true, 0.075, 0.075);
+
+
+        let preloadScene = this.scene.get('preload-scene');
+        let mom: NPCData = preloadScene.cache.json.get('data-candy-mom');
+
+        let momDialog = <DialogBox> UIScene.pushContent(this, DialogBox);
+        momDialog.setNameText(mom.name);
+        momDialog.setDialogText(mom.introDialog);
     }
 
     update(time, deltaTime) {

@@ -15,12 +15,12 @@ export interface TraderSale {
 export interface NPCData { // note: 'CharacterData' is reserved by node
   id: NPCId,
   name: string,
-  image: AssetKey, // not sure we need this when using Tiled, but gives us some extra flexibility
+  image?: AssetKey, // not sure we need this when using Tiled, but gives us some extra flexibility
   buys?: Array<TraderPurchase>,
   sells?: Array<TraderSale>,
-  introDialog: Array<string>,
-  returnDialog: string,
-  farewellDialog: string
+  introDialog: string | Array<string>,
+  returnDialog: string | Array<string>,
+  farewellDialog: string | Array<string>
 }
 
 // (presumably we'll place the character visually in-editor, so no need for placement data here?

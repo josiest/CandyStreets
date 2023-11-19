@@ -45,18 +45,18 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
         dialogBox.setNameText(this.npcData.name)
                  .setDialogText(dialogText)
                  .onCancel(() => this.handleDialogCancel(dialogBox))
-                 .onContinue(() => this.handleDialogContinue(dialogBox));
+                 .onFinish(() => this.handleDialogFinish(dialogBox));
     }
 
     handleDialogCancel(dialogBox: DialogBox) {
-        if (dialogBox.dialogText.text == this.npcData.farewellDialog) {
+        if (dialogBox.dialogLines == this.npcData.farewellDialog) {
             UIScene.popContent(this.scene, dialogBox);
         }
         else {
-            dialogBox.dialogText.setText(this.npcData.farewellDialog);
+            dialogBox.setDialogText(this.npcData.farewellDialog);
         }
     }
-    handleDialogContinue(dialogBox: DialogBox) {
+    handleDialogFinish(dialogBox: DialogBox) {
         UIScene.popContent(this.scene, dialogBox);
         if (dialogBox.dialogText.text == this.npcData.farewellDialog) {
             return;

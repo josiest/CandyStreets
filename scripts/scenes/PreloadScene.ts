@@ -78,25 +78,24 @@ export default class PreloadScene extends Phaser.Scene {
 
   loadCharacters() {
     this.load.image('candy-pc', 'assets/temp/candy-pc.png');
+    this.load.json('data-candy-mom',
+                   'assets/characters/candy-mom.json');
 
     this.load.image('candy-cat',
                     'assets/characters/textures/candy-cat.png');
-
-    this.load.image('candy-lama',
-                    'assets/characters/textures/candy-lama.png');
-
-    this.load.image('candy-pirate',
-                    'assets/characters/textures/candy-pirate.png');
-
-
-    this.load.json('data-candy-pirate',
-                   'assets/characters/candy-pirate.json');
-
     this.load.json('data-candy-cat',
                    'assets/characters/candy-cat.json');
 
+    this.load.image('candy-lama',
+                    'assets/characters/textures/candy-lama.png');
     this.load.json('data-candy-lama',
                    'assets/characters/candy-lama.json');
+
+    this.load.image('candy-pirate',
+                    'assets/characters/textures/candy-pirate.png');
+    this.load.json('data-candy-pirate',
+                   'assets/characters/candy-pirate.json');
+
   }
 
   loadItems() {

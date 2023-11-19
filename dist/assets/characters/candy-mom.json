@@ -1,0 +1,20 @@
+{
+    "id": "candy-mom",
+    "name": "Mom",
+    "introDialog": [
+        "Well, have you had enough Trick or Treating? Ready to come inside?",
+        "Wait, what do you mean, \"You need more candy?\" What's all this?",
+        "...You want \"different candy?\" Of course you do...",
+        "Fine, fine. Well, I guess you can see if any of the other children will trade candy with you? Some of them should still be out, why don't you go check?",
+        "Just be in before dinner in one hour! And don't you even think about eating any of it beforehand!"
+    ],
+    "returnDialog": "What's up little ghost?",
+    "farewellDialog": [
+        "Good timing, dinner is almost ready.",
+        "Did you get the candy you wanted?",
+        "Ha, good, that's my little goblin.",
+        "Oh, sorry, my little ghost. Heh.",
+        "Well, come inside, it's time to eat. And afterwards, we can have some of your candy.",
+        "...Yes, we! Haven't you heard of the \"Mommy Tax\" before?"
+    ]
+}
