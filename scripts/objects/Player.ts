@@ -22,6 +22,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Setup Input
         scene.input.keyboard.addKeys("W,A,S,D");
         this.cursors = scene.input.keyboard.createCursorKeys();
+
+        const spriteSize = 256;
+        this.setSize(spriteSize, spriteSize)
+            .setDisplaySize(spriteSize, spriteSize);
     }
 
     update(time, deltaTime) {

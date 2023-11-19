@@ -22,39 +22,39 @@ const placedImages = [
   // copy-pasted from /tiled/LooseImages.tsj, just to simplify the preload process
   {
    "id":0,
-   "image":"img/candy-house-1.png",
-   "imageheight":429,
-   "imagewidth":513
+   "image":"img/candy-house-2.png",
+   "imageheight":1200,
+   "imagewidth":1200
   }, 
   {
    "id":1,
    "image":"img/candy-house-1.png",
-   "imageheight":362,
-   "imagewidth":505
+   "imageheight":1200,
+   "imagewidth":1200
   }, 
   {
    "id":2,
-   "image":"img/candy-house-1.png",
-   "imageheight":548,
-   "imagewidth":678
+   "image":"img/candy-house-3.png",
+   "imageheight":1200,
+   "imagewidth":1200
   }, 
   {
    "id":3,
    "image":"characters/textures/candy-lama.png",
-   "imageheight":128,
-   "imagewidth":128
+   "imageheight":800,
+   "imagewidth":800
   }, 
   {
    "id":4,
    "image":"characters/textures/candy-pirate.png",
-   "imageheight":128,
-   "imagewidth":128
+   "imageheight":800,
+   "imagewidth":800
   }, 
   {
    "id":5,
    "image":"characters/textures/candy-cat.png",
-   "imageheight":128,
-   "imagewidth":128
+   "imageheight":800,
+   "imagewidth":800
   }
 ]
 
@@ -77,7 +77,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   loadCharacters() {
-    this.load.image('candy-pc', 'assets/temp/candy-pc.png');
+    this.load.image('candy-pc', 'assets/characters/textures/candy-pc.png');
     this.load.json('data-candy-mom',
                    'assets/characters/candy-mom.json');
 
@@ -122,19 +122,5 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     this.scene.start('main-scene')
-
-    /**
-     * This is how you would dynamically import the MainScene class (with code splitting),
-     * add the MainScene to the Scene Manager
-     * and start the scene.
-     * The name of the chunk would be 'MainScene.chunk.js
-     * Find more about code splitting here: https://webpack.js.org/guides/code-splitting/
-     */
-    // let someCondition = true
-    // if (someCondition)
-    //   import(/* webpackChunkName: "MainScene" */ './MainScene').then(MainScene => {
-    //     this.scene.add('MainScene', MainScene.default, true)
-    //   })
-    // else console.log('The MainScene class will not even be loaded by the browser')
   }
 }

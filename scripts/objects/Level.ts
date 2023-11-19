@@ -129,10 +129,10 @@ export default class Level extends Phaser.GameObjects.Container {
         // which Phaser has cached after loading.
         //
         // For now, we're storing the cached JSON object under this.mapJSON.
-        // console.log(this.map);
+        console.log(this.map);
 
         // Looking at the Tiled JSON object:
-        // console.log(this.mapJSON);
+        console.log(this.mapJSON);
         const sourceTileset = this.mapJSON.tilesets.find((tilesetDef)=>{
             return (tilesetDef.firstgid <= tiledObject.gid! &&
             tilesetDef.firstgid + tilesetDef.tilecount > tiledObject.gid!);

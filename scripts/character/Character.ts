@@ -16,7 +16,6 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
     constructor(scene: Phaser.Scene,
                 characterId: string, x: number, y: number) {
         super(scene, x, y, characterId);
-
         const preloadScene = this.scene.scene.get("preload-scene");
         this.npcData = preloadScene.cache.json.get(`data-${characterId}`);
 
@@ -33,6 +32,10 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
         this.interaction.onPlayerInteracted = () => {
             this.handleTalkToPlayer(true);
         }
+
+        const spriteSize = 256;
+        this.setSize(spriteSize, spriteSize)
+            .setDisplaySize(spriteSize, spriteSize);
     }
 
     handleTalkToPlayer(isReturn: boolean) {
