@@ -47,6 +47,8 @@ export default class MainScene extends Phaser.Scene {
         let momDialog = <DialogBox> UIScene.pushContent(this, DialogBox);
         momDialog.setNameText(mom.name);
         momDialog.setDialogText(mom.introDialog);
+
+        let music = this.sound.add('candy-music').play({loop: true });
     }
 
     update(time, deltaTime) {

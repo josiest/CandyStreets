@@ -67,6 +67,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.loadCharacters();
     this.loadItems();
 
+    this.load.audio('candy-music', 'assets/candy-music.mp3');
     this.load.image("tiles", "assets/tileset_extruded.png");
     this.load.tilemapTiledJSON("tilemap", "assets/test-map-embedded.tmj")
 
