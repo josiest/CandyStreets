@@ -25,13 +25,13 @@ const placedImages = [
   // copy-pasted from /tiled/LooseImages.tsj, just to simplify the preload process
   {
    "id":0,
-   "image":"img/candy-house-2.png",
+   "image":"img/candy-house-1.png",
    "imageheight":1200,
    "imagewidth":1200
   }, 
   {
    "id":1,
-   "image":"img/candy-house-1.png",
+   "image":"img/candy-house-2.png",
    "imageheight":1200,
    "imagewidth":1200
   }, 
