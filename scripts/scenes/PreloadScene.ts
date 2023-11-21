@@ -16,6 +16,9 @@ import * as Phaser from 'phaser'
 // are just copy-pasted in below.
 // 
 // (It's brittle, but for now this works and I don't want to hold up other dev.)
+//
+// JT: seems like we can use the 'filecomplete' event to solve this issue!
+// https://labs.phaser.io/edit.html?src=src/loader/loader%20events/file%20complete%20event.js&v=3.70.0
 
 const firstImageGID = 1 // from "LooseImages" tileset's "firstgid" val in test-map-embedded.tmj
 const placedImages = [

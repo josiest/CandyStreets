@@ -129,16 +129,21 @@ export default class Level extends Phaser.GameObjects.Container {
         // which Phaser has cached after loading.
         //
         // For now, we're storing the cached JSON object under this.mapJSON.
-        console.log(this.map);
+        //console.log(this.map);
+        //
+        // note JT: I haven't looked into testing this out yet, but there may
+        //          be an aliternative solution to this problem listed here:
+        //          https://www.html5gamedevs.com/topic/42288-tiled-object-custom-properties-get-phaser-3-code/
 
         // Looking at the Tiled JSON object:
-        console.log(this.mapJSON);
+        console.log(this.mapJSON.tilesets);
         const sourceTileset = this.mapJSON.tilesets.find((tilesetDef)=>{
+            // tiled object's id is within the bounds of the tileset
             return (tilesetDef.firstgid <= tiledObject.gid! &&
             tilesetDef.firstgid + tilesetDef.tilecount > tiledObject.gid!);
         });
         if (sourceTileset === undefined) {
-            throw new Error(`unable to find tileset for object "${tiledObject.name}" (id: ${tiledObject.id})`);
+            throw new Error(`unable to find tileset for object "${tiledObject.name}" (gid: ${tiledObject.gid!})`);
         } else {
             // console.log('found tileset:', sourceTileset);
         }
