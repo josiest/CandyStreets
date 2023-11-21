@@ -50,6 +50,9 @@
   </objectgroup>
  </tile>
  <tile id="6">
+  <properties>
+   <property name="npcId" value="candy-pc"/>
+  </properties>
   <image width="800" height="800" source="../dist/assets/characters/textures/candy-pc.png"/>
  </tile>
 </tileset>
