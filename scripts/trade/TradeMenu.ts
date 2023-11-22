@@ -3,7 +3,8 @@ import IActivatableWidget from '../ui/ActivatableWidget'
 import UIScene from '../scenes/UIScene'
 
 import { TraderPurchase, TraderSale } from '../data/NPCData'
-import TradeList from '../trade/TradeList'
+import TradeList from './TradeList'
+import Button from '../ui/Button'
 
 type MenuEvent = () => void;
 
@@ -30,6 +31,8 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     cancelText: Phaser.GameObjects.Text;
     itemsBought: TradeList<TraderPurchase>;
     itemsSold: Array<Phaser.GameObjects.Text>;
+
+    buyButton: Button;
 
     constructor(scene: Phaser.Scene) {
         super(scene);
@@ -66,7 +69,7 @@ export default class TradeMenu extends Phaser.GameObjects.Container
             width/2, height
         );
         this.itemsSold = new Array<Phaser.GameObjects.Text>();
-
+        this.buyButton = new Button(this.scene).setText("Buy");
         this.redraw();
     }
     setItemsBought(items: Array<TraderPurchase>) {
@@ -106,6 +109,8 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     activate() {
         this.isActive = true;
         this.graphics.setVisible(true)
+
+        this.buyButton.activate();
         return this.redraw();
     }
     deactivate() {
@@ -114,6 +119,8 @@ export default class TradeMenu extends Phaser.GameObjects.Container
         this.cancelText.destroy();
         this.itemsBought.removeAll(true);
         this.resetItemsSold();
+
+        this.buyButton.deactivate();
 
         if (this.onDeactivated) {
             this.onDeactivated();
