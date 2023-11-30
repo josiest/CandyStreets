@@ -20,6 +20,13 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     textColor: number = 0xffffff;
     actionTextPadding: number = 30;
 
+    tradeButtonWidth: number = 300;
+    tradeRightPadding: number = 100;
+    tradeBottomOffset: number = 20;
+
+    tradeInnerHorizontalPadding: number = 20;
+    tradeInnerVerticalPadding: number = 10;
+
     handleCancel: MenuEvent;
     handleConfirm: MenuEvent;
     onDeactivated: MenuEvent;
@@ -32,7 +39,7 @@ export default class TradeMenu extends Phaser.GameObjects.Container
     itemsBought: TradeList<TraderPurchase>;
     itemsSold: Array<Phaser.GameObjects.Text>;
 
-    buyButton: Button;
+    tradeButton: Button;
 
     constructor(scene: Phaser.Scene) {
         super(scene);
@@ -69,7 +76,16 @@ export default class TradeMenu extends Phaser.GameObjects.Container
             width/2, height
         );
         this.itemsSold = new Array<Phaser.GameObjects.Text>();
-        this.buyButton = new Button(this.scene).setText("Buy");
+
+        const tradeX = this.rect.x + this.rect.width
+                     - this.tradeButtonWidth - this.tradeRightPadding;
+        const tradeY = this.rect.y + this.rect.height
+                     - this.tradeBottomOffset;
+        this.tradeButton = new Button(this.scene)
+            .setText('Trade Sweets!')
+            .setPosition(tradeX, tradeY)
+            .setWidth(this.tradeButtonWidth);
+
         this.redraw();
     }
     setItemsBought(items: Array<TraderPurchase>) {
@@ -110,7 +126,7 @@ export default class TradeMenu extends Phaser.GameObjects.Container
         this.isActive = true;
         this.graphics.setVisible(true)
 
-        this.buyButton.activate();
+        this.tradeButton.activate();
         return this.redraw();
     }
     deactivate() {
@@ -120,7 +136,7 @@ export default class TradeMenu extends Phaser.GameObjects.Container
         this.itemsBought.removeAll(true);
         this.resetItemsSold();
 
-        this.buyButton.deactivate();
+        this.tradeButton.deactivate();
 
         if (this.onDeactivated) {
             this.onDeactivated();

@@ -6,14 +6,14 @@ type ButtonEvent = () => void;
 export default class Button extends Phaser.GameObjects.Container
                             implements IActivatableWidget {
 
-    horizontalPadding: number = 30;
-    verticalPadding: number = 20;
+    horizontalPadding: number = 20;
+    verticalPadding: number = 5;
 
     textSize: number = 30;
-    textColor: number = 0x0;
+    textColor: number = 0xffffff;
 
     buttonColor: number = 0xff4dd2;
-    buttonWidth: number = 200;
+    buttonWidth: number = 100;
     buttonRounding: number = 10;
 
     isActive: boolean;
@@ -38,7 +38,7 @@ export default class Button extends Phaser.GameObjects.Container
               color: `#${this.textColor.toString(16)}` }
         )
         .setDepth(20);
-        this.add(this.buttonText);
+        // this.add(this.buttonText);
 
         this.boxRect = new Phaser.Geom.Rectangle(
             this.x, this.y,
@@ -50,10 +50,24 @@ export default class Button extends Phaser.GameObjects.Container
         this.buttonText.setText(text);
         return this;
     }
+    setHorizonatalPadding(padding: number) {
+        this.horizontalPadding = padding;
+        return this.redraw();
+    }
+    setVerticalPadding(padding: number) {
+        this.verticalPadding = padding;
+        return this.redraw();
+    }
     setPosition(x: number, y: number) {
         super.setPosition(x, y);
         if (this.boxRect) {
             this.boxRect.setPosition(x, y);
+        }
+        if (this.buttonText) {
+            this.buttonText.setPosition(
+                this.boxRect.x + this.horizontalPadding,
+                this.boxRect.y + this.verticalPadding
+            );
         }
         if (this.graphics) {
             this.redraw();
@@ -77,10 +91,15 @@ export default class Button extends Phaser.GameObjects.Container
     }
 
     redraw() {
+        this.buttonText.setPosition(
+            this.boxRect.x + this.horizontalPadding,
+            this.boxRect.y + this.verticalPadding);
+
         this.graphics.clear()
             .fillStyle(this.buttonColor, 1)
             .fillRoundedRect(this.boxRect.x, this.boxRect.y,
-                             this.boxRect.width, this.boxRect.height);
+                             this.boxRect.width, this.boxRect.height,
+                             this.buttonRounding);
         return this;
     }
 }

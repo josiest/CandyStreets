@@ -33,8 +33,6 @@ export default class TradeItem extends Phaser.GameObjects.Container {
                         .setDisplaySize(this.iconSize, this.iconSize);
 
         this.add(this.icon);
-        console.log(`added image: img-${itemId}`);
-
         this.text = this.scene.add.text(
             this.nameLeftPadding + (this.iconSize/2.0),
             -this.textSize/2.0,

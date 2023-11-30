@@ -136,7 +136,7 @@ export default class Level extends Phaser.GameObjects.Container {
         //          https://www.html5gamedevs.com/topic/42288-tiled-object-custom-properties-get-phaser-3-code/
 
         // Looking at the Tiled JSON object:
-        console.log(this.mapJSON.tilesets);
+        // console.log(this.mapJSON.tilesets);
         const sourceTileset = this.mapJSON.tilesets.find((tilesetDef)=>{
             // tiled object's id is within the bounds of the tileset
             return (tilesetDef.firstgid <= tiledObject.gid! &&
